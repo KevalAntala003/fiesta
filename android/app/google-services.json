@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "10865740519",
+    "project_id": "fiesta-5aab4",
+    "storage_bucket": "fiesta-5aab4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10865740519:android:4650ca3ed23e5649c73042",
+        "android_client_info": {
+          "package_name": "com.app.hk.foot.fiesta"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIulfnQcADppugXmObFb9rW1kYKtdTDAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
