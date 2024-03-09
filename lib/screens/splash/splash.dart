@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fiesta/constant/list_const.dart';
 import 'package:fiesta/constant/var_const.dart';
+import 'package:fiesta/helper/firebase_notification.dart';
 import 'package:fiesta/repository/get_data_repository.dart';
 import 'package:fiesta/utils/emuns.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,23 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  Future<void> initNotification() async {
+    /// from -- void main
+    FireBaseNotification().configureSelectNotificationSubject();
+    await FireBaseNotification().setUpLocalNotification();
+
+    /// from -- splash screen
+    await FireBaseNotification().firebaseCloudMessagingLSetup();
+
+    /// from -- dash board screen
+    await FireBaseNotification().localNotificationRequestPermissions();
+
+    FireBaseNotification().configureDidReceiveLocalNotificationSubject();
+  }
+
   @override
   void initState() {
+    initNotification();
     Future.delayed(const Duration(seconds: 2), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.getString("userId") != null) {
