@@ -6,6 +6,7 @@ class VarConst {
   static const double padding = 14;
   static const double sizeOnAppBar = 30;
   static UserCredential? credential;
+  static String? userFCMToken;
   static String? currentUser;
   static RxBool isLoading = false.obs;
   static AdminData adminData =

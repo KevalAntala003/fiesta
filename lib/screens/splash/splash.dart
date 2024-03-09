@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fiesta/constant/list_const.dart';
 import 'package:fiesta/constant/var_const.dart';
 import 'package:fiesta/repository/get_data_repository.dart';
+import 'package:fiesta/utils/emuns.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/user_data.dart';
@@ -44,7 +45,11 @@ class _SplashState extends State<Splash> {
               .then((value) {
             ListConst.currentUser = userDataFromJson(jsonEncode(value.data()));
           });
-          showOffAll(Routes.userHome);
+          if (ListConst.currentUser.userType == UserType.user.name) {
+            showOffAll(Routes.userHome);
+          }else {
+            // showOffAll(Routes.);
+          }
         }
       } else {
         showOffAll(Routes.intro1);

@@ -3,6 +3,7 @@ import 'package:fiesta/custom_widget/custom_field.dart';
 import 'package:fiesta/custom_widget/custom_size.dart';
 import 'package:fiesta/custom_widget/custom_text.dart';
 import 'package:fiesta/repository/get_data_repository.dart';
+import 'package:fiesta/utils/common_snack_bar.dart';
 import 'package:fiesta/utils/show.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -70,11 +71,7 @@ class _SignInState extends State<SignIn> {
             const CustomSize(
               height: 30,
             ),
-            CustomTextFormField(
-                fieldColor: ColorConst.backColor,
-                text: "Email Address",
-                hintText: "xyz@gmail.com",
-                controller: emailController),
+            CustomTextFormField(fieldColor: ColorConst.backColor, text: "Email Address", hintText: "xyz@gmail.com", controller: emailController),
             const CustomSize(
               height: 30,
             ),
@@ -97,10 +94,7 @@ class _SignInState extends State<SignIn> {
       children: [
         const Row(
           children: [
-            CustomText(
-                text: "Password",
-                color: ColorConst.grey,
-                fontFamily: ForFontFamily.rale),
+            CustomText(text: "Password", color: ColorConst.grey, fontFamily: ForFontFamily.rale),
           ],
         ),
         const CustomSize(),
@@ -123,16 +117,11 @@ class _SignInState extends State<SignIn> {
                 onPressed: () {
                   isView.value = !isView.value;
                 },
-                icon: isView.value
-                    ? const Icon(Icons.visibility_off)
-                    : const Icon(Icons.visibility),
+                icon: isView.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
               ),
               hintText: ".......",
-              hintStyle: const TextStyle(
-                  color: ColorConst.grey, fontWeight: FontWeight.bold),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide.none),
+              hintStyle: const TextStyle(color: ColorConst.grey, fontWeight: FontWeight.bold),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
             ),
           ),
         )
@@ -165,8 +154,7 @@ class _SignInState extends State<SignIn> {
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
                   backgroundColor: ColorConst.buttonColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14))),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
               onPressed: () {
                 Get.snackbar("Wait", "Details checking is in process");
               },
@@ -198,23 +186,44 @@ class _SignInState extends State<SignIn> {
 
   Future<void> onSignIn() async {
     try {
-      VarConst.isLoading.value = true;
-      VarConst.credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-              email: emailController.text.trim(), password: passwordController.text.trim());
-      VarConst.isLoading.value = false;
-      VarConst.currentUser = VarConst.credential!.user!.uid;
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString("userId", VarConst.credential!.user!.uid);
-      if (VarConst.credential!.user!.uid == VarConst.adminData.adminId) {
-        showOffAll(Routes.adminHome);
+      final bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(emailController.text.trim());
+
+    if (!emailValid) {
+        AppSnackBar.showErrorSnackBar(
+          message: "please enter valid email address.",
+          title: "error",
+        );
+      } else if (passwordController.text.trim().isEmpty) {
+        AppSnackBar.showErrorSnackBar(
+          message: "please enter password.",
+          title: "error",
+        );
+      } else if (passwordController.text.length < 6) {
+        AppSnackBar.showErrorSnackBar(
+          message: "Password length must be 6 character",
+          title: "error",
+        );
       } else {
-        await GetDataRepository().getCurrentUserDetails();
-        showOffAll(Routes.userHome);
+        VarConst.isLoading.value = true;
+        VarConst.credential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text.trim(), password: passwordController.text.trim());
+        VarConst.isLoading.value = false;
+        VarConst.currentUser = VarConst.credential!.user!.uid;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString("userId", VarConst.credential!.user!.uid);
+        if (VarConst.credential!.user!.uid == VarConst.adminData.adminId) {
+          showOffAll(Routes.adminHome);
+        } else {
+          await GetDataRepository().getCurrentUserDetails();
+          showOffAll(Routes.userHome);
+        }
       }
     } on FirebaseAuthException catch (e) {
       VarConst.isLoading.value = false;
-      Fluttertoast.showToast(msg: e.toString());
+      AppSnackBar.showErrorSnackBar(
+        message: e.message??"",
+        title: "error",
+      );
     }
   }
 }

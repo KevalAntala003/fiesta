@@ -13,6 +13,8 @@ class UserData {
   final String? email;
   final String? address;
   final String? uId;
+  final String? userType;
+  final String? userFcm;
   final List<dynamic>? orderList;
   final List<dynamic>? cart;
 
@@ -21,6 +23,8 @@ class UserData {
     this.email,
     this.address,
     this.uId,
+    this.userFcm,
+    this.userType,
     this.orderList,
     this.cart,
   });
@@ -30,6 +34,8 @@ class UserData {
     email: json["email"],
     address: json["address"],
     uId: json["uId"],
+    userType: json["userType"],
+    userFcm: json["userFcm"],
     orderList: json["orderList"] == null ? [] : List<dynamic>.from(json["orderList"]!.map((x) => x)),
     cart: json["cart"] == null ? [] : List<dynamic>.from(json["cart"]!.map((x) => x)),
   );
@@ -39,6 +45,8 @@ class UserData {
     "email": email,
     "address": address,
     "uId": uId,
+    "userType": userType,
+    "userFcm": userFcm,
     "orderList": orderList == null ? [] : List<dynamic>.from(orderList!.map((x) => x)),
     "cart": cart == null ? [] : List<dynamic>.from(cart!.map((x) => x)),
   };
