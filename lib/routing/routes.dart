@@ -24,4 +24,5 @@ class Routes{
   static const String shoeInfoScreen = "/shoeInfoScreen";
   static const String cartScreenUser = "/cartScreenUser";
   static const String termsScreen = "/termsScreen";
+  static const String resellerScreen = "/resellerScreen";
 }
