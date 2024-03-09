@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: PageRouting().pageRouting,
-      initialRoute: Routes.splash,
+      // initialRoute: Routes.splash,
+      initialRoute: Routes.resellerScreen,
       theme: ThemeData(
         pageTransitionsTheme: const PageTransitionsTheme(builders: {TargetPlatform.android:CupertinoPageTransitionsBuilder()}),
         scaffoldBackgroundColor: ColorConst.bgColor,

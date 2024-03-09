@@ -6,6 +6,7 @@ import 'package:fiesta/screens/users/cart/order_placed.dart';
 import 'package:fiesta/screens/users/orders_users/order_user.dart';
 import 'package:fiesta/screens/users/profile_user/profile_user.dart';
 import '../screens/admin/product_admin/edit_product_admin.dart';
+import '../screens/reseller/reseller_screen.dart';
 import '../screens/users/cart/confirm_address_user.dart';
 import '../screens/users/cart/confirm_order.dart';
 import '/screens/admin/admin_home.dart';
@@ -51,5 +52,6 @@ class PageRouting{
     GetPage(name: Routes.shoeInfoScreen, page: () => const ShoeInfoScreen()),
     GetPage(name: Routes.cartScreenUser, page: () => const CartScreenUser()),
     GetPage(name: Routes.termsScreen, page: () => const TermsScreen()),
+    GetPage(name: Routes.resellerScreen, page: () => const ResellerScreen()),
   ];
 }
