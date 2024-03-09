@@ -1,9 +1,15 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fiesta/constant/list_const.dart';
 import 'package:fiesta/custom_widget/custom_button.dart';
 import 'package:fiesta/custom_widget/custom_field.dart';
 import 'package:fiesta/custom_widget/custom_size.dart';
 import 'package:fiesta/custom_widget/custom_text.dart';
+import 'package:fiesta/models/user_data.dart';
 import 'package:fiesta/repository/get_data_repository.dart';
 import 'package:fiesta/utils/common_snack_bar.dart';
+import 'package:fiesta/utils/emuns.dart';
 import 'package:fiesta/utils/show.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -188,7 +194,7 @@ class _SignInState extends State<SignIn> {
     try {
       final bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(emailController.text.trim());
 
-    if (!emailValid) {
+      if (!emailValid) {
         AppSnackBar.showErrorSnackBar(
           message: "please enter valid email address.",
           title: "error",
@@ -214,14 +220,20 @@ class _SignInState extends State<SignIn> {
         if (VarConst.credential!.user!.uid == VarConst.adminData.adminId) {
           showOffAll(Routes.adminHome);
         } else {
-          await GetDataRepository().getCurrentUserDetails();
-          showOffAll(Routes.userHome);
+          await FirebaseFirestore.instance.collection("users").doc(VarConst.currentUser).get().then((value) {
+            ListConst.currentUser = userDataFromJson(jsonEncode(value.data()));
+          });
+          if (ListConst.currentUser.userType == UserType.user.name) {
+            showOffAll(Routes.userHome);
+          } else {
+            showOffAll(Routes.resellerScreen);
+          }
         }
       }
     } on FirebaseAuthException catch (e) {
       VarConst.isLoading.value = false;
       AppSnackBar.showErrorSnackBar(
-        message: e.message??"",
+        message: e.message ?? "",
         title: "error",
       );
     }

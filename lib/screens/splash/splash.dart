@@ -24,7 +24,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     Future.delayed(const Duration(seconds: 2), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      if(prefs.getString("userId") != null){
+      if (prefs.getString("userId") != null) {
         VarConst.currentUser = prefs.getString("userId");
       }
     }).then((value) async {
@@ -38,17 +38,13 @@ class _SplashState extends State<Splash> {
         } else {
           log("Welcome User...");
           await GetDataRepository().getCurrentUserDetails();
-          await FirebaseFirestore.instance
-              .collection("users")
-              .doc(VarConst.currentUser)
-              .get()
-              .then((value) {
+          await FirebaseFirestore.instance.collection("users").doc(VarConst.currentUser).get().then((value) {
             ListConst.currentUser = userDataFromJson(jsonEncode(value.data()));
           });
           if (ListConst.currentUser.userType == UserType.user.name) {
             showOffAll(Routes.userHome);
-          }else {
-            // showOffAll(Routes.);
+          } else {
+            showOffAll(Routes.resellerScreen);
           }
         }
       } else {

@@ -34,9 +34,8 @@ class _AdminHomeState extends State<AdminHome> {
       background: ColorConst.blue,
       key: sideMenuKey,
       menu: buildDrawer(),
-      onChange: (val){
-        setState(() {
-        });
+      onChange: (val) {
+        setState(() {});
       },
       child: PopScope(
         canPop: false,
@@ -44,9 +43,7 @@ class _AdminHomeState extends State<AdminHome> {
           log("back function is hit");
           if (sideMenuKey.currentState!.isOpened) {
             sideMenuKey.currentState!.closeSideMenu();
-            setState(() {
-
-            });
+            setState(() {});
             log("drawer close with back");
           } else {
             log("Exit with back");
@@ -98,9 +95,7 @@ class _AdminHomeState extends State<AdminHome> {
             onTap: () {
               if (sideMenuKey.currentState!.isOpened) {
                 sideMenuKey.currentState!.closeSideMenu();
-                setState(() {
-
-                });
+                setState(() {});
               } else {
                 sideMenuKey.currentState!.openSideMenu();
               }
@@ -141,18 +136,15 @@ class _AdminHomeState extends State<AdminHome> {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            OrderData orderData =
-                orderDataFromJson(jsonEncode(document.data()));
+            OrderData orderData = orderDataFromJson(jsonEncode(document.data()));
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: ListTile(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                    side: const BorderSide(
-                        color: ColorConst.hintColor, width: 0.2)),
+                shape:
+                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(14), side: const BorderSide(color: ColorConst.hintColor, width: 0.2)),
                 tileColor: ColorConst.white,
-                onTap: (){
-                  show(Routes.showOrderInfoAdmin,argument: [orderData,document.id]);
+                onTap: () {
+                  show(Routes.showOrderInfoAdmin, argument: [orderData, document.id]);
                 },
                 title: CustomText(
                   text: orderData.customerName!,
@@ -186,9 +178,7 @@ class _AdminHomeState extends State<AdminHome> {
           ListTile(
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
-              setState(() {
-
-              });
+              setState(() {});
             },
             leading: const Icon(Icons.home),
             title: const Text('Home'),
@@ -213,7 +203,8 @@ class _AdminHomeState extends State<AdminHome> {
             onTap: () async {
               FirebaseAuth.instance.signOut();
               SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.remove("userId");
+              // prefs.remove("userId");
+              await prefs.clear();
               showOffAll(Routes.signIn);
             },
             leading: const Icon(Icons.logout),
@@ -230,7 +221,7 @@ class _AdminHomeState extends State<AdminHome> {
                 vertical: 16.0,
               ),
               child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     sideMenuKey.currentState!.closeSideMenu();
                     show(Routes.termsScreen);
                   },
