@@ -36,7 +36,8 @@ class GetDataRepository {
   }*/
 
   Future<void> onDeleteProduct(String id) async {
-    await FirebaseFirestore.instance.collection("products").doc(id).update({"isLive":false});
+    await FirebaseFirestore.instance.collection("products").doc(id).delete();
+    // await FirebaseFirestore.instance.collection("products").doc(id).update({"isLive":false});
   }
 
   Future<void> getProductsData() async {
@@ -73,6 +74,13 @@ class GetDataRepository {
   }
 
   Future<void> setCurrentUserDetail() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(VarConst.currentUser)
+        .set(jsonDecode(userDataToJson(ListConst.currentUser)));
+  }
+
+  Future<void> setCurrentUserDetailNew() async {
     await FirebaseFirestore.instance
         .collection("users")
         .doc(VarConst.currentUser)

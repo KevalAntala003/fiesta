@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../models/shoe_data.dart';
+import '../../../utils/show.dart';
 import '/repository/get_data_repository.dart';
 import '../../../custom_widget/custom_number_field.dart';
 import '/custom_widget/custom_field.dart';
@@ -16,6 +17,7 @@ import '../../../constant/var_const.dart';
 import '../../../custom_widget/custom_back.dart';
 import '../../../custom_widget/custom_button.dart';
 import '../../../custom_widget/custom_size.dart';
+import 'add_product_admin.dart';
 
 class EditProductAdmin extends StatefulWidget {
   const EditProductAdmin({super.key});
@@ -33,15 +35,39 @@ class _EditProductAdminState extends State<EditProductAdmin> {
   TextEditingController categoryController = TextEditingController();
   TextEditingController desController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  List<ShoesSizeModel> shoeSize = [
+    ShoesSizeModel(size: '6', isSelected: false),
+    ShoesSizeModel(size: '7', isSelected: false),
+    ShoesSizeModel(size: '8', isSelected: false),
+    ShoesSizeModel(size: '9', isSelected: false),
+    ShoesSizeModel(size: '10', isSelected: false),
+    ShoesSizeModel(size: '11', isSelected: false),
+    ShoesSizeModel(size: '12', isSelected: false),
+  ];
 
   @override
   void initState() {
+    editDataSet();
+    super.initState();
+  }
+
+
+  editDataSet() {
+    log('shoeData.shoesSize-->${shoeData.shoesSize}');
     nameController.text = shoeData.name!;
     selectedCategory.value = shoeData.category!;
     desController.text = shoeData.des!;
     priceController.text = shoeData.price.toString();
-    super.initState();
+    for (var element in shoeSize) {
+      for (var elements in shoeData.shoesSize!) {
+        if (element.size == elements) {
+          element.isSelected = true;
+        }
+      }
+    }
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,12 +102,14 @@ class _EditProductAdminState extends State<EditProductAdmin> {
                 controller: desController,
                 hintText: "cool shoes for men"),
             const CustomSize(),
+            buildShoeSize(),
+            const CustomSize(),
             buildCategorySelection(),
             const CustomSize(),
             CustomNumberTextFormField(
               text: "Price",
               controller: priceController,
-              hintText: "\$4000",
+              hintText: "${rupeesIcon}4000",
             ),
             const CustomSize(),
             image != null ? buildShowImage() : buildGetImage(),
@@ -106,6 +134,46 @@ class _EditProductAdminState extends State<EditProductAdmin> {
         CustomSize(
           width: 50,
         )
+      ],
+    );
+  }
+
+  Widget buildShoeSize(){
+    return Column(crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const CustomText(
+          text: 'Select shoes Size',
+          weight: true,
+          size: 16,
+          color: ColorConst.grey,
+          fontFamily: ForFontFamily.rale,
+        ),
+        const SizedBox(height: 10),
+        Row(children: List.generate(shoeSize.length, (index) {
+          return InkWell(onTap: () {
+            shoeSize[index].isSelected = !shoeSize[index].isSelected!;
+            setState(() {});
+          },
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              height: 35,
+              width: 35,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: (shoeSize[index].isSelected ?? false) ? ColorConst.buttonColor : ColorConst.white,
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color:(shoeSize[index].isSelected ?? false) ? ColorConst.white : ColorConst.grey)
+              ),
+              child: CustomText(
+                text: shoeSize[index].size!,
+                weight: true,
+                size: 16,
+                color: (shoeSize[index].isSelected ?? false) ? ColorConst.white : ColorConst.grey,
+                fontFamily: ForFontFamily.rale,
+              ),
+            ),
+          );
+        }),),
       ],
     );
   }
@@ -223,6 +291,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
                     "des": desController.text,
                     "id": shoeData.id,
                     "imgUrl": imgUrl,
+                    "ShoesSize":shoeSize.where((element) => element.isSelected ?? false).toList().map((e) => e.size).toList(),
                     "isLive": true,
                     "price": int.parse(priceController.text),
                     "category": selectedCategory.value
@@ -236,6 +305,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
                     "des": desController.text,
                     "id": shoeData.id,
                     "imgUrl": shoeData.imgUrl,
+                    "ShoesSize":shoeSize.where((element) => element.isSelected ?? false).toList().map((e) => e.size).toList(),
                     "isLive": true,
                     "price": int.parse(priceController.text),
                     "category": selectedCategory.value

@@ -52,7 +52,7 @@ class _ShowOrderInfoAdminState extends State<ShowOrderInfoAdmin> {
           buildAppbar(),
           const CustomSize(),
           CustomText(
-            text: "Total Amount : \$${orderData.totalAmount}",
+            text: "Total Amount : $rupeesIcon${orderData.totalAmount}",
             align: TextAlign.start,
             overflow: TextOverflow.ellipsis,
           ),

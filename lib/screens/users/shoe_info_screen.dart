@@ -7,6 +7,7 @@ import 'package:fiesta/custom_widget/custom_size.dart';
 import 'package:fiesta/custom_widget/custom_text.dart';
 import 'package:fiesta/models/shoe_data.dart';
 import 'package:fiesta/repository/get_data_repository.dart';
+import 'package:fiesta/utils/common_snack_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -14,6 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../constant/color_const.dart';
 import '../../constant/var_const.dart';
+import '../../utils/show.dart';
 
 class ShoeInfoScreen extends StatefulWidget {
   const ShoeInfoScreen({super.key});
@@ -24,6 +26,8 @@ class ShoeInfoScreen extends StatefulWidget {
 
 class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
   ShoeData shoeData = Get.arguments;
+  String selectedShoesSize = '';
+  int? selectedShoesSizeIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +77,7 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
               fontFamily: ForFontFamily.rale,
             ),
             const CustomSize(),
-            CustomText(text: "\$${shoeData.price}", size: 24),
+            CustomText(text: "$rupeesIcon${shoeData.price}", size: 24),
             SizedBox(
                 width: double.infinity,
                 child: CachedNetworkImage(
@@ -83,6 +87,43 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 )),
+            const CustomSize(),
+            const CustomText(
+              text: "Shoes Size :",
+              size: 16,
+              color: ColorConst.hintColor,
+              ls: 0.5,
+            ),
+            const CustomSize(),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(children: List.generate(shoeData.shoesSize!.length, (index) {
+                return InkWell(onTap: () {
+                  selectedShoesSizeIndex = index;
+                  selectedShoesSize = shoeData.shoesSize![index];
+                  setState(() {});
+                },
+                  child: Container(
+                    margin:  const EdgeInsets.symmetric(horizontal:3),
+                    height: 33,
+                    width: 33,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(
+                            color:selectedShoesSizeIndex == index ? ColorConst.buttonColor : ColorConst.grey)
+                    ),
+                    child: CustomText(
+                      text: shoeData.shoesSize![index],
+                      weight: true,
+                      size: 14,
+                      color: selectedShoesSizeIndex == index ? ColorConst.buttonColor : ColorConst.grey,
+                      fontFamily: ForFontFamily.rale,
+                    ),
+                  ),
+                );
+              }),),
+            ),
             const CustomSize(),
             const CustomText(
               text: "Description :",
@@ -159,23 +200,35 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
   }
 
   Future<void> onAddToCart() async {
-    if(shoeData.isLive!){
+    if(shoeData.isLive! && selectedShoesSize.isNotEmpty){
       VarConst.isLoading.value = true;
       try {
-        ListConst.currentUser.cart!.add(shoeData.id);
-        await GetDataRepository().setCurrentUserDetail();
+        // ListConst.currentUser.cart!.add(shoeData.id);
+        ListConst.currentUser.cart!.add({
+          'id':shoeData.id,
+          'size':selectedShoesSize,
+          'image': shoeData.imgUrl,
+          'name':shoeData.name,
+          'price':shoeData.price,
+          'category':shoeData.category,
+          'des':shoeData.des
+        });
+        // await GetDataRepository().setCurrentUserDetail();
+        await GetDataRepository().setCurrentUserDetailNew();
         Get.back();
-        Fluttertoast.showToast(msg: "Item added to cart.");
+        // Fluttertoast.showToast(msg: "Item added to cart.");
+        AppSnackBar.showErrorSnackBar(message: 'Item added to cart.', title: 'success');
         log("tried!!");
         VarConst.isLoading.value = false;
       } catch (e) {
         VarConst.isLoading.value = false;
         log(e.toString());
         log("catch!!");
-        Fluttertoast.showToast(msg: e.toString());
+        AppSnackBar.showErrorSnackBar(message: e.toString(), title: 'error');
+        // Fluttertoast.showToast(msg: e.toString());
       }
     }else{
-      Fluttertoast.showToast(msg: "This item no longer available.");
+      AppSnackBar.showErrorSnackBar(message: 'This select a size!', title: 'error');
     }
   }
 }

@@ -77,7 +77,10 @@ class _AllProductAdminState extends State<AllProductAdmin> {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(child: Text('No Products available'));
+          return const Center(child: Padding(
+            padding: EdgeInsets.only(top: 50.0),
+            child: Text('No Products available!',style: TextStyle(fontSize: 20),),
+          ));
         }
         return ListView(
           physics: const NeverScrollableScrollPhysics(),
@@ -137,7 +140,7 @@ class _AllProductAdminState extends State<AllProductAdmin> {
                     ls: 0.5,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  subtitle: Text('Price: \$${shoe.price}'),
+                  subtitle: Text('Price: $rupeesIcon${shoe.price}'),
                 ),
               );
             }else{

@@ -16,6 +16,7 @@ class ShoeData {
   final int? price;
   final bool? isLive;
   final String? category;
+  final List? shoesSize;
 
   ShoeData({
     this.name,
@@ -25,6 +26,7 @@ class ShoeData {
     this.price,
     this.isLive,
     this.category,
+    this.shoesSize,
   });
 
   factory ShoeData.fromJson(Map<String, dynamic> json) => ShoeData(
@@ -35,6 +37,7 @@ class ShoeData {
     price: json["price"],
     isLive: json["isLive"],
     category: json["category"],
+    shoesSize: json["ShoesSize"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -45,5 +48,6 @@ class ShoeData {
     "price": price,
     "isLive":isLive,
     "category": category,
+    "ShoesSize": shoesSize,
   };
 }

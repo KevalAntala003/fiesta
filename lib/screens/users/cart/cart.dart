@@ -57,7 +57,7 @@ class _CartScreenUserState extends State<CartScreenUser> {
           Obx(() => totalAmount.value == 0
               ? const SizedBox()
               : CustomText(
-                  text: "Total Amount : \$${totalAmount.value}",
+                  text: "Total Amount : rupeesIcon${totalAmount.value}",
                   align: TextAlign.start,
                   color: ColorConst.hintColor,
                 )),
@@ -187,10 +187,11 @@ class _CartScreenUserState extends State<CartScreenUser> {
     VarConst.isLoading.value = true;
     try {
       for (int i = 0; i < ListConst.currentUser.cart!.length; i++) {
+        log('ListConst.currentUser.cart!--->${ListConst.currentUser.cart!}');
         if (cartItems.any((element) =>
-            element.shoeData!.id == ListConst.currentUser.cart![i])) {
+            element.shoeData!.id == ListConst.currentUser.cart![i]['id'])) {
           for (int j = 0; j < cartItems.length; j++) {
-            if (ListConst.currentUser.cart![i] == cartItems[j].shoeData!.id) {
+            if (ListConst.currentUser.cart![i]['id'] == cartItems[j].shoeData!.id) {
               if (cartItems[j].qty != null) {
                 cartItems[j].qty = cartItems[j].qty! + 1;
               }
@@ -199,7 +200,7 @@ class _CartScreenUserState extends State<CartScreenUser> {
         } else {
           await FirebaseFirestore.instance
               .collection("products")
-              .doc(ListConst.currentUser.cart![i].toString())
+              .doc(ListConst.currentUser.cart![i]['id'].toString())
               .get()
               .then((value) {
             cartItems.add(CartItem(
@@ -219,6 +220,7 @@ class _CartScreenUserState extends State<CartScreenUser> {
   Future<void> onClearCart() async {
     VarConst.isLoading.value = true;
     try {
+      totalAmount.value = 0;
       cartItems.clear();
       ListConst.currentUser.cart!.clear();
       await GetDataRepository().setCurrentUserDetail();

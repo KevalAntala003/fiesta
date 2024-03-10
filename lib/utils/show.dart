@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 
+
+String rupeesIcon = '\u{20B9}';
+
 void show(String route, {dynamic argument}){
   Get.toNamed(route,arguments: argument);
 }

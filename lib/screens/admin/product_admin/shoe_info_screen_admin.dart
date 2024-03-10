@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constant/color_const.dart';
 import '../../../constant/var_const.dart';
+import '../../../utils/show.dart';
 
 class ShoeInfoScreenAdmin extends StatefulWidget {
   const ShoeInfoScreenAdmin({super.key});
@@ -64,7 +65,7 @@ class _ShoeInfoScreenAdminState extends State<ShoeInfoScreenAdmin> {
               fontFamily: ForFontFamily.rale,
             ),
             const CustomSize(),
-            CustomText(text: "\$${shoeData.price}", size: 24),
+            CustomText(text: "$rupeesIcon${shoeData.price}", size: 24),
             SizedBox(
                 width: double.infinity,
                 child: CachedNetworkImage(

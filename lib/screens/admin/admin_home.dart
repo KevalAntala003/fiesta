@@ -152,7 +152,7 @@ class _AdminHomeState extends State<AdminHome> {
                   align: TextAlign.start,
                   ls: 0.5,
                 ),
-                subtitle: Text('Amount: \$${orderData.totalAmount}'),
+                subtitle: Text('Amount: $rupeesIcon${orderData.totalAmount}'),
               ),
             );
           }).toList(),

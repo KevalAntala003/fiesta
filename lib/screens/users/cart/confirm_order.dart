@@ -51,7 +51,7 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
           buildAppbar(),
           const CustomSize(),
           CustomText(
-            text: "Total Amount : \$$totalAmount",
+            text: "Total Amount : $rupeesIcon$totalAmount",
             align: TextAlign.start,
             color: ColorConst.hintColor,
           ),

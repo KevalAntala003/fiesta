@@ -33,6 +33,15 @@ class _AddProductAdminState extends State<AddProductAdmin> {
   TextEditingController categoryController = TextEditingController();
   TextEditingController desController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  List<ShoesSizeModel> shoeSize = [
+    ShoesSizeModel(size: '6', isSelected: false),
+    ShoesSizeModel(size: '7', isSelected: false),
+    ShoesSizeModel(size: '8', isSelected: false),
+    ShoesSizeModel(size: '9', isSelected: false),
+    ShoesSizeModel(size: '10', isSelected: false),
+    ShoesSizeModel(size: '11', isSelected: false),
+    ShoesSizeModel(size: '12', isSelected: false),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +77,14 @@ class _AddProductAdminState extends State<AddProductAdmin> {
                 controller: desController,
                 hintText: "cool shoes for men"),
             const CustomSize(),
+            buildShoeSize(),
+            const CustomSize(),
             buildCategorySelection(),
             const CustomSize(),
             CustomNumberTextFormField(
               text: "Price",
               controller: priceController,
-              hintText: "\$4000",
+              hintText: "${rupeesIcon}4000",
             ),
             const CustomSize(),
             image != null ? buildShowImage() : buildGetImage(),
@@ -145,6 +156,46 @@ class _AddProductAdminState extends State<AddProductAdmin> {
     );
   }
 
+  Widget buildShoeSize(){
+    return Column(crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const CustomText(
+          text: 'Select shoes Size',
+          weight: true,
+          size: 16,
+          color: ColorConst.grey,
+          fontFamily: ForFontFamily.rale,
+        ),
+        const SizedBox(height: 10),
+        Row(children: List.generate(shoeSize.length, (index) {
+          return InkWell(onTap: () {
+            shoeSize[index].isSelected = !shoeSize[index].isSelected!;
+            setState(() {});
+          },
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              height: 35,
+              width: 35,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: (shoeSize[index].isSelected ?? false) ? ColorConst.buttonColor : ColorConst.white,
+                borderRadius: BorderRadius.circular(6),
+                border: Border.all(color:(shoeSize[index].isSelected ?? false) ? ColorConst.white : ColorConst.grey)
+              ),
+              child: CustomText(
+                text: shoeSize[index].size!,
+                weight: true,
+                size: 16,
+                color: (shoeSize[index].isSelected ?? false) ? ColorConst.white : ColorConst.grey,
+                fontFamily: ForFontFamily.rale,
+              ),
+            ),
+          );
+        }),),
+      ],
+    );
+  }
+
   Widget buildCategorySelection() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -207,6 +258,7 @@ class _AddProductAdminState extends State<AddProductAdmin> {
             : CustomButton(
                 onPressed: () async {
                   try {
+
                     VarConst.isLoading.value = true;
                     String imgUrl = await uploadDocument(image!);
                     await FirebaseFirestore.instance
@@ -215,9 +267,10 @@ class _AddProductAdminState extends State<AddProductAdmin> {
                         .set({
                       "name": nameController.text,
                       "des": desController.text,
-                      "id": orderId,
+                      "id": int.tryParse(orderId),
                       "imgUrl": imgUrl,
                       "isLive": true,
+                      "ShoesSize":shoeSize.where((element) => element.isSelected ?? false).toList().map((e) => e.size).toList(),
                       "price": int.parse(priceController.text),
                       "category": selectedCategory.value
                     });
@@ -269,4 +322,15 @@ class _AddProductAdminState extends State<AddProductAdmin> {
     }
     return currentImgUrl;
   }
+}
+
+
+class ShoesSizeModel {
+  String? size;
+  bool? isSelected;
+
+  ShoesSizeModel({
+    this.size,
+    this.isSelected,
+  });
 }

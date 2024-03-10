@@ -14,7 +14,9 @@ import 'package:fiesta/utils/show.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
@@ -263,7 +265,7 @@ class _UserHomeState extends State<UserHome> {
                               height: 5,
                             ),
                             CustomText(
-                              text: "\$ ${i.price}",
+                              text: "$rupeesIcon ${i.price}",
                               size: 20,
                               color: ColorConst.buttonColor,
                             ),
@@ -398,9 +400,9 @@ class _UserHomeState extends State<UserHome> {
     return StreamBuilder(
         stream: FirebaseFirestore.instance.collection('products').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+          // if (snapshot.connectionState == ConnectionState.waiting) {
+          //   return const Center(child: CircularProgressIndicator());
+          // }
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
@@ -426,6 +428,7 @@ class _UserHomeState extends State<UserHome> {
   }
 
   Widget buildShoeContainer({required ShoeData shoe}) {
+
     return GestureDetector(
       onTap: () {
         show(Routes.shoeInfoScreen, argument: shoe);
@@ -448,12 +451,14 @@ class _UserHomeState extends State<UserHome> {
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
+              const SizedBox(height: 8),
               CustomText(
                 text: "${shoe.category}",
                 color: Colors.blue,
                 weight: true,
                 size: 16,
               ),
+              const SizedBox(height: 5),
               CustomText(
                 text: "${shoe.name}",
                 size: 18,
@@ -461,10 +466,52 @@ class _UserHomeState extends State<UserHome> {
                 fontFamily: ForFontFamily.rale,
                 weight: true,
               ),
-              CustomText(
-                text: "\$${shoe.price}",
-                size: 18,
-                weight: true,
+              const SizedBox(height: 5),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(children: List.generate(shoe.shoesSize!.length, (index) {
+                  return Container(
+                    margin:  const EdgeInsets.symmetric(horizontal:2),
+                    height: 25,
+                    width: 25,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: ColorConst.buttonColor)
+                    ),
+                    child: CustomText(
+                      text: shoe.shoesSize![index],
+                      weight: true,
+                      size: 10,
+                      color: ColorConst.buttonColor,
+                      fontFamily: ForFontFamily.rale,
+                    ),
+                  );
+                }),),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  CustomText(
+                    text: "$rupeesIcon${shoe.price}",
+                    size: 18,
+                    weight: true,
+                  ),
+                  const Spacer(),
+                  Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: ColorConst.buttonColor,
+                      borderRadius: BorderRadius.circular(6)
+                    ),
+                    child: const Icon(
+                      Icons.add_circle_outline,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  )
+                ],
               )
             ],
           ),
