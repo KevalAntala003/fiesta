@@ -16,6 +16,7 @@ class ShoeData {
   final int? price;
   final bool? isLive;
   final String? category;
+  final String? FCMToken;
   final List? shoesSize;
 
   ShoeData({
@@ -26,6 +27,7 @@ class ShoeData {
     this.price,
     this.isLive,
     this.category,
+    this.FCMToken,
     this.shoesSize,
   });
 
@@ -37,6 +39,7 @@ class ShoeData {
     price: json["price"],
     isLive: json["isLive"],
     category: json["category"],
+    FCMToken: json["FCMToken"],
     shoesSize: json["ShoesSize"],
   );
 
@@ -48,6 +51,7 @@ class ShoeData {
     "price": price,
     "isLive":isLive,
     "category": category,
+    "FCMToken": FCMToken,
     "ShoesSize": shoesSize,
   };
 }
