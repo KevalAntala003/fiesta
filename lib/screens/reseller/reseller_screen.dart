@@ -239,7 +239,8 @@ class _ResellerScreenState extends State<ResellerScreen> {
             padding: EdgeInsets.only(top: 50.0),
             child: Text(
               'No Products available!',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20,
+              color: ColorConst.textPrimaryColor),
             ),
           ));
         }

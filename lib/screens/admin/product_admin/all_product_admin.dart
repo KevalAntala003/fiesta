@@ -82,7 +82,8 @@ class _AllProductAdminState extends State<AllProductAdmin> {
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return  Center(child: Padding(
             padding: EdgeInsets.only(top: 50.0),
-            child: Text('No Products available!',style: TextStyle(fontSize: 20),),
+            child: Text('No Products available!',style: TextStyle(fontSize: 20,
+            color: ColorConst.textPrimaryColor),),
           ));
         }
         return ListView(
