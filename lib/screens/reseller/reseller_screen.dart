@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
@@ -72,18 +73,23 @@ class _ResellerScreenState extends State<ResellerScreen> {
             ));
           }
         },
-        child: Scaffold(
-          floatingActionButton: buildFloatingButton(),
-          body: Padding(
-            padding: EdgeInsets.all(VarConst.padding),
-            child: Column(
-              children: [
-                CustomSize(
-                  height: VarConst.sizeOnAppBar,
-                ),
-                buildAppbar(),
-                buildListView()
-              ],
+        child: SafeArea(
+          child: Scaffold(
+            floatingActionButton: buildFloatingButton(),
+            appBar: PreferredSize(
+              preferredSize: Size(double.infinity, 100),
+              child: Container(
+                  color: ColorConst.cardBgColor,
+                  child: Padding(padding: EdgeInsets.symmetric(vertical: 10), child: buildAppbar())),
+            ),
+            body: Padding(
+              padding: EdgeInsets.all(VarConst.padding),
+              child: Column(
+                children: [
+          
+                  Expanded(child: buildListView())
+                ],
+              ),
             ),
           ),
         ),
@@ -92,33 +98,36 @@ class _ResellerScreenState extends State<ResellerScreen> {
   }
 
   Widget buildAppbar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-            onTap: () {
-              if (sideMenuKey.currentState!.isOpened) {
-                sideMenuKey.currentState!.closeSideMenu();
-                setState(() {});
-              } else {
-                sideMenuKey.currentState!.openSideMenu();
-              }
-            },
-            child: SizedBox(
-                height: 20,
-                width: 20,
-                child: Image.asset(
-                  ImgConst.menu,
-                  fit: BoxFit.fill,
-                  color: ColorConst.textSecondaryColor,
-                ))),
-        CustomText(
-          text: "ReSeller",
-          size: 28,
-          weight: true,
-        ),
-        themeSwitch(),
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: VarConst.padding),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+              onTap: () {
+                if (sideMenuKey.currentState!.isOpened) {
+                  sideMenuKey.currentState!.closeSideMenu();
+                  setState(() {});
+                } else {
+                  sideMenuKey.currentState!.openSideMenu();
+                }
+              },
+              child: SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: Image.asset(
+                    ImgConst.menu,
+                    fit: BoxFit.fill,
+                    color: ColorConst.textSecondaryColor,
+                  ))),
+          CustomText(
+            text: "ReSeller",
+            size: 28,
+            weight: true,
+          ),
+          themeSwitch(),
+        ],
+      ),
     );
   }
 

@@ -70,17 +70,21 @@ class _AdminHomeState extends State<AdminHome> {
             ));
           }
         },
-        child: Scaffold(
-          body: Padding(
-            padding: EdgeInsets.all(VarConst.padding),
-            child: Column(
-              children: [
-                CustomSize(
-                  height: VarConst.sizeOnAppBar,
-                ),
-                buildAppbar(),
-                Expanded(child: buildBody())
-              ],
+        child: SafeArea(
+          child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size(double.infinity, 100),
+              child: Container(
+                  color: ColorConst.cardBgColor,
+                  child: Padding(padding: EdgeInsets.symmetric(vertical: 10,horizontal: 15), child: buildAppbar())),
+            ),          body: Padding(
+              padding: EdgeInsets.all(VarConst.padding),
+              child: Column(
+                children: [
+
+                  Expanded(child: buildBody())
+                ],
+              ),
             ),
           ),
         ),
