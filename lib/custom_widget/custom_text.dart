@@ -1,3 +1,4 @@
+import 'package:fiesta/constant/color_const.dart';
 import 'package:flutter/material.dart';
 
 class CustomText extends StatefulWidget {
@@ -44,7 +45,7 @@ class _CustomTextState extends State<CustomText> {
       textAlign: widget.align ?? TextAlign.center,
       style: TextStyle(
           fontSize: widget.size ?? 17,
-          color: widget.color ?? Colors.black,
+          color: widget.color ?? ColorConst.textPrimaryColor,
           fontWeight: widget.weight ?? true ? FontWeight.bold : FontWeight.normal,
           overflow: widget.overflow ?? TextOverflow.fade,
           letterSpacing: widget.ls ?? 0,

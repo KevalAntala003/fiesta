@@ -21,7 +21,7 @@ class CustomScaffold extends StatelessWidget {
       backgroundColor: bgColor ?? ColorConst.bgColor,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: appBarBgColor ?? ColorConst.buttonColor,
+        backgroundColor: appBarBgColor ?? ColorConst.primaryColor,
         title: CustomText(text: appBarText ?? "Foot Fiesta",color: Colors.white,size: 18,),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(

@@ -17,9 +17,9 @@ class CustomBagButton extends StatelessWidget {
           width: 50,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: isWhite ? Colors.white : ColorConst.backColor
+              color: ColorConst.cardBgColor
           ),
-          child: const Center(child: Icon(CupertinoIcons.bag,))),
+          child: const Center(child: Icon(CupertinoIcons.bag,color: ColorConst.textPrimaryColor,))),
     );
   }
 }

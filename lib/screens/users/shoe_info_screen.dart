@@ -43,7 +43,7 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
-        CustomText(text: "Foot Fiesta"),
+        CustomText(text: "Foot Fiesta",color: ColorConst.textPrimaryColor,),
         CustomSize(width: 50,)
       ],
     );
@@ -68,16 +68,17 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
               size: 26,
               align: TextAlign.start,
               fontFamily: ForFontFamily.rale,
+              color: ColorConst.textPrimaryColor,
               weight: true,
             ),
             CustomText(
               text: "${shoeData.category}",
               size: 16,
-              color: ColorConst.grey,
+              color: ColorConst.textSecondaryColor,
               fontFamily: ForFontFamily.rale,
             ),
             const CustomSize(),
-            CustomText(text: "$rupeesIcon${shoeData.price}", size: 24),
+            CustomText(text: "$rupeesIcon${shoeData.price}",color: ColorConst.primaryColor, size: 24),
             SizedBox(
                 width: double.infinity,
                 child: CachedNetworkImage(
@@ -91,7 +92,7 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
             const CustomText(
               text: "Shoes Size :",
               size: 16,
-              color: ColorConst.hintColor,
+              color: ColorConst.textSecondaryColor,
               ls: 0.5,
             ),
             const CustomSize(),
@@ -111,13 +112,13 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(
-                            color:selectedShoesSizeIndex == index ? ColorConst.buttonColor : ColorConst.grey)
+                            color:selectedShoesSizeIndex == index ? ColorConst.primaryColor : ColorConst.textSecondaryColor)
                     ),
                     child: CustomText(
                       text: shoeData.shoesSize![index],
                       weight: true,
                       size: 14,
-                      color: selectedShoesSizeIndex == index ? ColorConst.buttonColor : ColorConst.grey,
+                      color: selectedShoesSizeIndex == index ? ColorConst.primaryColor : ColorConst.textSecondaryColor,
                       fontFamily: ForFontFamily.rale,
                     ),
                   ),
@@ -128,21 +129,21 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
             const CustomText(
               text: "Description :",
               size: 16,
-              color: ColorConst.hintColor,
+              color: ColorConst.textSecondaryColor,
               ls: 0.5,
             ),
             const CustomSize(),
             Card(
               elevation: 5,
-              color: ColorConst.backColor,
-              shadowColor: ColorConst.grey,
+              color: ColorConst.cardBgColor,
+              shadowColor: ColorConst.textSecondaryColor,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: CustomText(
                   text: "${shoeData.des}",
                   size: 14,
                   ls: 0.5,
-                  color: ColorConst.grey,
+                  color: ColorConst.textSecondaryColor,
                   align: TextAlign.start,
                 ),
               ),
@@ -164,7 +165,7 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
             ? ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
-                    backgroundColor: ColorConst.buttonColor,
+                    backgroundColor: ColorConst.primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14))),
                 onPressed: () {
@@ -176,14 +177,14 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
             : ElevatedButton(
             style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
-                backgroundColor: ColorConst.buttonColor,
+                backgroundColor: ColorConst.primaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14))),
             onPressed: () => onAddToCart(),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(CupertinoIcons.bag,color: ColorConst.white,),
+                const Icon(CupertinoIcons.bag,color: ColorConst.textPrimaryColor,),
                 const CustomSize(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

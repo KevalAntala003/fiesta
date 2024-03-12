@@ -67,15 +67,9 @@ class _AddProductAdminState extends State<AddProductAdmin> {
             const CustomSize(
               height: 20,
             ),
-            CustomTextFormField(
-                text: "Name Of Product",
-                controller: nameController,
-                hintText: "xxxxxxxx"),
+            CustomTextFormField(text: "Name Of Product", controller: nameController, hintText: "xxxxxxxx"),
             const CustomSize(),
-            CustomTextFormField(
-                text: "Description",
-                controller: desController,
-                hintText: "cool shoes for men"),
+            CustomTextFormField(text: "Description", controller: desController, hintText: "cool shoes for men"),
             const CustomSize(),
             buildShoeSize(),
             const CustomSize(),
@@ -134,10 +128,7 @@ class _AddProductAdminState extends State<AddProductAdmin> {
       child: Container(
         height: Get.width / 3,
         width: double.infinity,
-        decoration: BoxDecoration(
-            border: Border.all(),
-            borderRadius: BorderRadius.circular(14),
-            color: ColorConst.white),
+        decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(14), color: ColorConst.cardBgColor),
         child: Obx(
           () => VarConst.isLoading.value
               ? const Center(child: CircularProgressIndicator())
@@ -147,6 +138,7 @@ class _AddProductAdminState extends State<AddProductAdmin> {
                     Image.asset(
                       ImgConst.addImage,
                       scale: 15,
+                      color: ColorConst.textPrimaryColor,
                     ),
                     const CustomText(text: "Add Image")
                   ],
@@ -156,42 +148,45 @@ class _AddProductAdminState extends State<AddProductAdmin> {
     );
   }
 
-  Widget buildShoeSize(){
-    return Column(crossAxisAlignment: CrossAxisAlignment.start,
+  Widget buildShoeSize() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const CustomText(
           text: 'Select shoes Size',
           weight: true,
           size: 16,
-          color: ColorConst.grey,
+          color: ColorConst.textSecondaryColor,
           fontFamily: ForFontFamily.rale,
         ),
         const SizedBox(height: 10),
-        Row(children: List.generate(shoeSize.length, (index) {
-          return InkWell(onTap: () {
-            shoeSize[index].isSelected = !shoeSize[index].isSelected!;
-            setState(() {});
-          },
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4),
-              height: 35,
-              width: 35,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: (shoeSize[index].isSelected ?? false) ? ColorConst.buttonColor : ColorConst.white,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color:(shoeSize[index].isSelected ?? false) ? ColorConst.white : ColorConst.grey)
+        Row(
+          children: List.generate(shoeSize.length, (index) {
+            return InkWell(
+              onTap: () {
+                shoeSize[index].isSelected = !shoeSize[index].isSelected!;
+                setState(() {});
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                height: 35,
+                width: 35,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: (shoeSize[index].isSelected ?? false) ? ColorConst.primaryColor : ColorConst.cardBgColor,
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: (shoeSize[index].isSelected ?? false) ? ColorConst.cardBgColor : ColorConst.textSecondaryColor)),
+                child: CustomText(
+                  text: shoeSize[index].size!,
+                  weight: true,
+                  size: 16,
+                  color: (shoeSize[index].isSelected ?? false) ? ColorConst.cardBgColor : ColorConst.textSecondaryColor,
+                  fontFamily: ForFontFamily.rale,
+                ),
               ),
-              child: CustomText(
-                text: shoeSize[index].size!,
-                weight: true,
-                size: 16,
-                color: (shoeSize[index].isSelected ?? false) ? ColorConst.white : ColorConst.grey,
-                fontFamily: ForFontFamily.rale,
-              ),
-            ),
-          );
-        }),),
+            );
+          }),
+        ),
       ],
     );
   }
@@ -204,7 +199,7 @@ class _AddProductAdminState extends State<AddProductAdmin> {
           text: "Category",
           weight: true,
           size: 16,
-          color: ColorConst.grey,
+          color: ColorConst.textSecondaryColor,
           fontFamily: ForFontFamily.rale,
         ),
         Obx(() => DropdownButton(
@@ -216,7 +211,7 @@ class _AddProductAdminState extends State<AddProductAdmin> {
                   ),
                 ),
               ),
-              dropdownColor: ColorConst.white,
+              dropdownColor: ColorConst.cardBgColor,
               borderRadius: BorderRadius.circular(14),
               value: selectedCategory.value,
               items: List.generate(
@@ -224,7 +219,7 @@ class _AddProductAdminState extends State<AddProductAdmin> {
                   (index) => DropdownMenuItem(
                         value: VarConst.categories[index],
                         child: CustomText(
-                          color: ColorConst.grey,
+                          color: ColorConst.textSecondaryColor,
                           ls: 0.5,
                           text: VarConst.categories[index],
                         ),
@@ -246,9 +241,8 @@ class _AddProductAdminState extends State<AddProductAdmin> {
             ? ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
-                    backgroundColor: ColorConst.buttonColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14))),
+                    backgroundColor: ColorConst.primaryColor,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
                 onPressed: () {
                   Get.snackbar("Wait", "Details checking is in process");
                 },
@@ -258,19 +252,15 @@ class _AddProductAdminState extends State<AddProductAdmin> {
             : CustomButton(
                 onPressed: () async {
                   try {
-
                     VarConst.isLoading.value = true;
                     String imgUrl = await uploadDocument(image!);
-                    await FirebaseFirestore.instance
-                        .collection("products")
-                        .doc(orderId)
-                        .set({
+                    await FirebaseFirestore.instance.collection("products").doc(orderId).set({
                       "name": nameController.text,
                       "des": desController.text,
                       "id": int.tryParse(orderId),
                       "imgUrl": imgUrl,
                       "isLive": true,
-                      "ShoesSize":shoeSize.where((element) => element.isSelected ?? false).toList().map((e) => e.size).toList(),
+                      "ShoesSize": shoeSize.where((element) => element.isSelected ?? false).toList().map((e) => e.size).toList(),
                       "price": int.parse(priceController.text),
                       "category": selectedCategory.value
                     });
@@ -311,10 +301,7 @@ class _AddProductAdminState extends State<AddProductAdmin> {
     try {
       String fileName = "${DateTime.now().millisecondsSinceEpoch}";
       String ext = file.path.split('/').last.split('.').last;
-      TaskSnapshot uploadTask = await FirebaseStorage.instance
-          .ref()
-          .child('productPhoto/$fileName.$ext')
-          .putFile(file);
+      TaskSnapshot uploadTask = await FirebaseStorage.instance.ref().child('productPhoto/$fileName.$ext').putFile(file);
       log("test the url --->${await uploadTask.ref.getDownloadURL()}");
       return await uploadTask.ref.getDownloadURL();
     } catch (e) {
@@ -323,7 +310,6 @@ class _AddProductAdminState extends State<AddProductAdmin> {
     return currentImgUrl;
   }
 }
-
 
 class ShoesSizeModel {
   String? size;

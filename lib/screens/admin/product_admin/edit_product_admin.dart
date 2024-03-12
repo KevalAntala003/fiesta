@@ -145,7 +145,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
           text: 'Select shoes Size',
           weight: true,
           size: 16,
-          color: ColorConst.grey,
+          color: ColorConst.textSecondaryColor,
           fontFamily: ForFontFamily.rale,
         ),
         const SizedBox(height: 10),
@@ -160,15 +160,15 @@ class _EditProductAdminState extends State<EditProductAdmin> {
               width: 35,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: (shoeSize[index].isSelected ?? false) ? ColorConst.buttonColor : ColorConst.white,
+                  color: (shoeSize[index].isSelected ?? false) ? ColorConst.primaryColor : ColorConst.cardBgColor,
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color:(shoeSize[index].isSelected ?? false) ? ColorConst.white : ColorConst.grey)
+                  border: Border.all(color:(shoeSize[index].isSelected ?? false) ? ColorConst.cardBgColor :  ColorConst.textSecondaryColor,)
               ),
               child: CustomText(
                 text: shoeSize[index].size!,
                 weight: true,
                 size: 16,
-                color: (shoeSize[index].isSelected ?? false) ? ColorConst.white : ColorConst.grey,
+                color: (shoeSize[index].isSelected ?? false) ? ColorConst.cardBgColor : ColorConst.textSecondaryColor,
                 fontFamily: ForFontFamily.rale,
               ),
             ),
@@ -202,7 +202,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
         decoration: BoxDecoration(
             border: Border.all(),
             borderRadius: BorderRadius.circular(14),
-            color: ColorConst.white),
+            color: ColorConst.cardBgColor),
         child: Obx(
               () => VarConst.isLoading.value
               ? const Center(child: CircularProgressIndicator())
@@ -227,7 +227,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
           text: "Category",
           weight: true,
           size: 16,
-          color: ColorConst.grey,
+          color: ColorConst.textSecondaryColor,
           fontFamily: ForFontFamily.rale,
         ),
         Obx(() => DropdownButton(
@@ -239,7 +239,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
               ),
             ),
           ),
-          dropdownColor: ColorConst.white,
+          dropdownColor: ColorConst.cardBgColor,
           borderRadius: BorderRadius.circular(14),
           value: selectedCategory.value,
           items: List.generate(
@@ -247,7 +247,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
                   (index) => DropdownMenuItem(
                 value: VarConst.categories[index],
                 child: CustomText(
-                  color: ColorConst.grey,
+                  color: ColorConst.textSecondaryColor,
                   ls: 0.5,
                   text: VarConst.categories[index],
                 ),
@@ -268,7 +268,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
             ? ElevatedButton(
             style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
-                backgroundColor: ColorConst.buttonColor,
+                backgroundColor: ColorConst.primaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14))),
             onPressed: () {

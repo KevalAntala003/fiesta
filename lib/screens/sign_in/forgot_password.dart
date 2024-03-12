@@ -23,7 +23,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConst.bgColor,
       body: buildBody(),);
   }
 
@@ -58,14 +58,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 text: "Enter Your Email Account To Reset Your Password",
                 size: 16,
                 ls: 0.5,
-                color: ColorConst.grey,
+                color: ColorConst.textSecondaryColor,
               ),
             ),
             const CustomSize(
               height: 30,
             ),
             CustomTextFormField(
-                fieldColor: ColorConst.backColor,
+                fieldColor: ColorConst.cardBgColor,
                 text: "Email Address",
                 hintText: "xyz@gmail.com",
                 controller: emailController),

@@ -68,9 +68,9 @@ class _ProfileUserState extends State<ProfileUser> {
       child: ListTile(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: const BorderSide(color: ColorConst.hintColor,width: 0.2)
+            side:  BorderSide(color: ColorConst.textSecondaryColor,width: 0.2)
         ),
-        tileColor: ColorConst.white,
+        tileColor: ColorConst.cardBgColor,
         title: CustomText(
           text: title,
           weight: true,
@@ -81,7 +81,7 @@ class _ProfileUserState extends State<ProfileUser> {
           text: subTitle,
           size: 14,
           align: TextAlign.start,
-          color: ColorConst.hintColor,
+          color: ColorConst.textSecondaryColor,
         ),
       ),
     );

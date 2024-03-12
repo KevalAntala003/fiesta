@@ -74,8 +74,8 @@ class _ConfirmAddressUserState extends State<ConfirmAddressUser> {
     return ListTile(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
-          side: const BorderSide(color: ColorConst.hintColor, width: 0.2)),
-      tileColor: ColorConst.white,
+          side: const BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
+      tileColor: ColorConst.cardBgColor,
       title: const CustomText(
         text: "Address",
         size: 18,
@@ -84,7 +84,7 @@ class _ConfirmAddressUserState extends State<ConfirmAddressUser> {
       subtitle: CustomText(
         text: ListConst.currentUser.address!,
         size: 16,
-        color: ColorConst.hintColor,
+        color: ColorConst.textSecondaryColor,
         align: TextAlign.start,
       ),
     );
@@ -94,7 +94,7 @@ class _ConfirmAddressUserState extends State<ConfirmAddressUser> {
     return TextButton(
         onPressed: () {
           Get.bottomSheet(
-              backgroundColor: ColorConst.white,
+              backgroundColor: ColorConst.bottomSheetBgColor,
               Padding(
                 padding: const EdgeInsets.all(VarConst.padding),
                 child: Column(
@@ -133,7 +133,7 @@ class _ConfirmAddressUserState extends State<ConfirmAddressUser> {
         child: const CustomText(
           text: "Change Address",
           size: 14,
-          color: ColorConst.buttonColor,
+          color: ColorConst.primaryColor,
         ));
   }
 

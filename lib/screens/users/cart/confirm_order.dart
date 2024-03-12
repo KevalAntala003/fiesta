@@ -53,7 +53,7 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
           CustomText(
             text: "Total Amount : $rupeesIcon$totalAmount",
             align: TextAlign.start,
-            color: ColorConst.hintColor,
+            color: ColorConst.textSecondaryColor,
           ),
           buildListView()
         ],
@@ -83,62 +83,65 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
       () => VarConst.isLoading.value
           ? const Center(child: CircularProgressIndicator())
           : ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (BuildContext context, index) {
-                    return ListTile(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                          side: const BorderSide(
-                              color: ColorConst.hintColor, width: 0.2)),
-                      tileColor: ColorConst.white,
-                      onTap: () => show(Routes.shoeInfoScreenAdmin,
-                          argument: cartItems[index].shoeData),
-                      leading: CachedNetworkImage(
-                        imageUrl: cartItems[index].shoeData!.imgUrl!,
-                        placeholder: (context, url) => const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: CircularProgressIndicator(),
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                      title: CustomText(
-                        text: cartItems[index].shoeData!.name!,
-                        size: 18,
-                        align: TextAlign.start,
-                        ls: 0.5,
-                      ),
-                      subtitle: Text('Qty : ${cartItems[index].qty}'),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, index) {
-                    return const CustomSize();
-                  },
-                  itemCount: cartItems.length),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, index) {
+                return ListTile(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14), side: const BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
+                  tileColor: ColorConst.cardBgColor,
+                  onTap: () => show(Routes.shoeInfoScreenAdmin, argument: cartItems[index].shoeData),
+                  leading: CachedNetworkImage(
+                    imageUrl: cartItems[index].shoeData!.imgUrl!,
+                    placeholder: (context, url) => const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                  ),
+                  title: CustomText(
+                    text: cartItems[index].shoeData!.name!,
+                    size: 18,
+                    align: TextAlign.start,
+                    ls: 0.5,
+                  ),
+                  subtitle: Text(
+                    'Qty : ${cartItems[index].qty}',
+                    style: TextStyle(color: ColorConst.textSecondaryColor),
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, index) {
+                return const CustomSize();
+              },
+              itemCount: cartItems.length),
     );
   }
 
   Widget buildConfirm() {
-    return Obx(() => Padding(
+    return Obx(
+      () => Padding(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
-                backgroundColor: ColorConst.buttonColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14))),
-            onPressed: isPlacingOrder.value ? null : () async {
-              await onPlaceOrder();
-            },
-            child: isPlacingOrder.value ? const CircularProgressIndicator() : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: const CustomText(
-                size: 16,
-                text: "Confirm Order",
-                color: Colors.white,
-              ).animate().fadeIn(duration: const Duration(milliseconds: 500)),
-            )),
+                backgroundColor: ColorConst.primaryColor,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
+            onPressed: isPlacingOrder.value
+                ? null
+                : () async {
+                    await onPlaceOrder();
+                  },
+            child: isPlacingOrder.value
+                ? const CircularProgressIndicator()
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const CustomText(
+                      size: 16,
+                      text: "Confirm Order",
+                      color: Colors.white,
+                    ).animate().fadeIn(duration: const Duration(milliseconds: 500)),
+                  )),
       ),
     );
   }
@@ -147,10 +150,7 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
     String orderId = DateTime.now().millisecondsSinceEpoch.toString();
     isPlacingOrder.value = true;
     try {
-      await FirebaseFirestore.instance
-          .collection("orders")
-          .doc(orderId)
-          .set(jsonDecode(orderDataToJson(orderData)));
+      await FirebaseFirestore.instance.collection("orders").doc(orderId).set(jsonDecode(orderDataToJson(orderData)));
       ListConst.currentUser.orderList!.add(orderData);
       ListConst.currentUser.cart!.clear();
       await GetDataRepository().setCurrentUserDetail();

@@ -72,9 +72,9 @@ class _UserDataScreenAdminState extends State<UserDataScreenAdmin> {
       child: ListTile(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: const BorderSide(color: ColorConst.hintColor,width: 0.2)
+            side: const BorderSide(color: ColorConst.textSecondaryColor,width: 0.2)
         ),
-        tileColor: ColorConst.white,
+        tileColor: ColorConst.cardBgColor,
         title: CustomText(
           text: title,
           weight: true,
@@ -85,7 +85,7 @@ class _UserDataScreenAdminState extends State<UserDataScreenAdmin> {
           text: subTitle,
           size: 14,
           align: TextAlign.start,
-          color: ColorConst.hintColor,
+          color: ColorConst.textSecondaryColor,
         ),
       ),
     );

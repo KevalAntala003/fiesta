@@ -29,14 +29,12 @@ class ResellerScreen extends StatefulWidget {
 }
 
 class _ResellerScreenState extends State<ResellerScreen> {
-
-
   final GlobalKey<SideMenuState> sideMenuKey = GlobalKey<SideMenuState>();
 
   @override
   Widget build(BuildContext context) {
     return SideMenu(
-      background: ColorConst.blue,
+      background: ColorConst.bottomSheetBgColor,
       key: sideMenuKey,
       menu: buildDrawer(),
       onChange: (val) {
@@ -112,6 +110,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
                 child: Image.asset(
                   ImgConst.menu,
                   fit: BoxFit.fill,
+                  color: ColorConst.textSecondaryColor,
                 ))),
         const CustomText(
           text: "ReSeller",
@@ -127,8 +126,8 @@ class _ResellerScreenState extends State<ResellerScreen> {
 
   Widget buildDrawer() {
     return ListTileTheme(
-      textColor: Colors.white,
-      iconColor: Colors.white,
+      textColor: ColorConst.textPrimaryColor,
+      iconColor: ColorConst.textPrimaryColor,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -136,7 +135,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
             text: "Seller",
             size: 32,
             weight: true,
-            color: ColorConst.white,
+            color: ColorConst.textPrimaryColor,
             fontFamily: ForFontFamily.rale,
           ),
           ListTile(
@@ -144,24 +143,48 @@ class _ResellerScreenState extends State<ResellerScreen> {
               sideMenuKey.currentState!.closeSideMenu();
               setState(() {});
             },
-            leading: const Icon(Icons.home),
-            title: const Text('Home'),
+            leading: const Icon(
+              Icons.home,
+              color: ColorConst.textPrimaryColor,
+            ),
+            title: const Text(
+              'Home',
+              style: TextStyle(
+                color: ColorConst.textPrimaryColor,
+              ),
+            ),
           ),
           ListTile(
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
               show(Routes.allProductAdmin);
             },
-            leading: const Icon(Icons.card_travel),
-            title: const Text('Products'),
+            leading: const Icon(
+              Icons.card_travel,
+              color: ColorConst.textPrimaryColor,
+            ),
+            title: const Text(
+              'Products',
+              style: TextStyle(
+                color: ColorConst.textPrimaryColor,
+              ),
+            ),
           ),
           ListTile(
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
               show(Routes.allUserAdmin);
             },
-            leading: const Icon(Icons.account_circle_rounded),
-            title: const Text("Users"),
+            leading: const Icon(
+              Icons.account_circle_rounded,
+              color: ColorConst.textPrimaryColor,
+            ),
+            title: const Text(
+              "Users",
+              style: TextStyle(
+                color: ColorConst.textPrimaryColor,
+              ),
+            ),
           ),
           ListTile(
             onTap: () async {
@@ -170,8 +193,16 @@ class _ResellerScreenState extends State<ResellerScreen> {
               await prefs.clear();
               showOffAll(Routes.signIn);
             },
-            leading: const Icon(Icons.logout),
-            title: const Text('Sign Out'),
+            leading: const Icon(
+              Icons.logout,
+              color: ColorConst.textPrimaryColor,
+            ),
+            title: const Text(
+              'Sign Out',
+              style: TextStyle(
+                color: ColorConst.textPrimaryColor,
+              ),
+            ),
           ),
           const Spacer(),
           DefaultTextStyle(
@@ -188,7 +219,12 @@ class _ResellerScreenState extends State<ResellerScreen> {
                     sideMenuKey.currentState!.closeSideMenu();
                     show(Routes.termsScreen);
                   },
-                  child: const Text('Terms of Service | Privacy Policy')),
+                  child: const Text(
+                    'Terms of Service | Privacy Policy',
+                    style: TextStyle(
+                      color: ColorConst.textSecondaryColor,
+                    ),
+                  )),
             ),
           ),
         ],
@@ -207,9 +243,13 @@ class _ResellerScreenState extends State<ResellerScreen> {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(child: Padding(
+          return const Center(
+              child: Padding(
             padding: EdgeInsets.only(top: 50.0),
-            child: Text('No Products available!',style: TextStyle(fontSize: 20),),
+            child: Text(
+              'No Products available!',
+              style: TextStyle(fontSize: 20),
+            ),
           ));
         }
         return ListView(
@@ -218,15 +258,13 @@ class _ResellerScreenState extends State<ResellerScreen> {
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             ShoeData shoe = shoeDataFromJson(jsonEncode(document.data()));
             log("test the log --->${shoe.imgUrl}");
-            if(shoe.isLive!){
+            if (shoe.isLive!) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 child: ListTile(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                      side: const BorderSide(
-                          color: ColorConst.hintColor, width: 0.2)),
-                  tileColor: ColorConst.white,
+                      borderRadius: BorderRadius.circular(14), side: const BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
+                  tileColor: ColorConst.cardBgColor,
                   onTap: () => show(Routes.shoeInfoScreenAdmin, argument: shoe),
                   leading: CachedNetworkImage(
                     imageUrl: shoe.imgUrl!,
@@ -237,7 +275,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
                     errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                   trailing: PopupMenuButton(
-                    color: ColorConst.white,
+                    color: ColorConst.cardBgColor,
                     itemBuilder: (context) => [
                       PopupMenuItem(
                         value: 1,
@@ -252,8 +290,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
                       PopupMenuItem(
                         value: 2,
                         onTap: () async {
-                          await GetDataRepository()
-                              .onDeleteProduct(shoe.id.toString());
+                          await GetDataRepository().onDeleteProduct(shoe.id.toString());
                           log("deleting product ${shoe.id}");
                         },
                         child: const CustomText(
@@ -270,10 +307,13 @@ class _ResellerScreenState extends State<ResellerScreen> {
                     ls: 0.5,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  subtitle: Text('Price: $rupeesIcon${shoe.price}'),
+                  subtitle: Text(
+                    'Price: $rupeesIcon${shoe.price}',
+                    style: TextStyle(color: ColorConst.textSecondaryColor),
+                  ),
                 ),
               );
-            }else{
+            } else {
               return const SizedBox();
             }
           }).toList(),
@@ -287,16 +327,22 @@ class _ResellerScreenState extends State<ResellerScreen> {
       onTap: () {
         show(Routes.addProductAdmin);
       },
-      child: Container(padding: EdgeInsets.symmetric(horizontal: 6),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 6),
         width: 172,
         height: 40,
         alignment: Alignment.center,
-        decoration: BoxDecoration(color: ColorConst.buttonColor,
-        borderRadius: BorderRadius.circular(16)),
+        decoration: BoxDecoration(color: ColorConst.primaryColor, borderRadius: BorderRadius.circular(16)),
         child: Row(
           children: [
-            Icon(Icons.add_circle_outline,color:  ColorConst.white,size: 20,),
-            SizedBox(width: 5,),
+            Icon(
+              Icons.add_circle_outline,
+              color: ColorConst.white,
+              size: 20,
+            ),
+            SizedBox(
+              width: 5,
+            ),
             const CustomText(
               text: 'Add Product',
               size: 18,

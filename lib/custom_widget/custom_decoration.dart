@@ -5,6 +5,6 @@ import '../constant/color_const.dart';
 Decoration buildDecoration(){
   return BoxDecoration(
     borderRadius: BorderRadius.circular(15),
-    color: ColorConst.buttonColor
+    color: ColorConst.primaryColor
   );
 }

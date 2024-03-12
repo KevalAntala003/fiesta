@@ -93,7 +93,7 @@ class _ShowOrderInfoAdminState extends State<ShowOrderInfoAdmin> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),
-                      color: ColorConst.white,
+                      color: ColorConst.cardBgColor,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -112,7 +112,7 @@ class _ShowOrderInfoAdminState extends State<ShowOrderInfoAdmin> {
                             ),
                           ),
                           CustomText(text: shoeImages[index].name!,align: TextAlign.start,size: 18,),
-                          CustomText(text: "Qty : ${orderData.items![index].qty}",align: TextAlign.start,size: 16,color: ColorConst.grey,)
+                          CustomText(text: "Qty : ${orderData.items![index].qty}",align: TextAlign.start,size: 16,color: ColorConst.textSecondaryColor,)
                         ],
                       ),
                     ),

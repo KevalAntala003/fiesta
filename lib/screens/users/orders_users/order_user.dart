@@ -83,12 +83,12 @@ class _OrderUserState extends State<OrderUser> {
                 return ListTile(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
-                      side: const BorderSide(color: ColorConst.hintColor,width: 0.2)
+                      side: const BorderSide(color: ColorConst.textSecondaryColor,width: 0.2)
                   ),
                   onTap: (){
                     show(Routes.showOrderInfoAdmin,argument: [allOrders[index],allOrders[index].orderId]);
                   },
-                  tileColor: ColorConst.white,
+                  tileColor: ColorConst.cardBgColor,
                   leading: const Icon(Icons.density_medium_rounded,size: 20),
                   title: CustomText(
                       text: "Amount : ${allOrders[index].totalAmount}",align: TextAlign.start,),
@@ -97,7 +97,7 @@ class _OrderUserState extends State<OrderUser> {
                         "No. of items : ${allOrders[index].items!.length}",
                     size: 16,
                     align: TextAlign.start,
-                    color: ColorConst.hintColor,
+                    color: ColorConst.textSecondaryColor,
                   ),
                 );
               }),

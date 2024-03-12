@@ -61,7 +61,7 @@ class _ShoeInfoScreenAdminState extends State<ShoeInfoScreenAdmin> {
             CustomText(
               text: "${shoeData.category}",
               size: 16,
-              color: ColorConst.grey,
+              color: ColorConst.textSecondaryColor,
               fontFamily: ForFontFamily.rale,
             ),
             const CustomSize(),
@@ -79,21 +79,21 @@ class _ShoeInfoScreenAdminState extends State<ShoeInfoScreenAdmin> {
             const CustomText(
               text: "Description :",
               size: 16,
-              color: ColorConst.hintColor,
+              color: ColorConst.textSecondaryColor,
               ls: 0.5,
             ),
             const CustomSize(),
             Card(
               elevation: 5,
-              color: ColorConst.backColor,
-              shadowColor: ColorConst.grey,
+              color: ColorConst.cardBgColor,
+              shadowColor: ColorConst.textSecondaryColor,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: CustomText(
                   text: "${shoeData.des}",
                   size: 14,
                   ls: 0.5,
-                  color: ColorConst.grey,
+                  color: ColorConst.textSecondaryColor,
                   align: TextAlign.start,
                 ),
               ),

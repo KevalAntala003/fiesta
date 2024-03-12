@@ -95,8 +95,8 @@ class _AllProductAdminState extends State<AllProductAdmin> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
                       side: const BorderSide(
-                          color: ColorConst.hintColor, width: 0.2)),
-                  tileColor: ColorConst.white,
+                          color: ColorConst.textSecondaryColor, width: 0.2)),
+                  tileColor: ColorConst.cardBgColor,
                   onTap: () => show(Routes.shoeInfoScreenAdmin, argument: shoe),
                   leading: CachedNetworkImage(
                     imageUrl: shoe.imgUrl!,
@@ -107,7 +107,7 @@ class _AllProductAdminState extends State<AllProductAdmin> {
                     errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                   trailing: PopupMenuButton(
-                    color: ColorConst.white,
+                    color: ColorConst.cardBgColor,
                     itemBuilder: (context) => [
                       PopupMenuItem(
                         value: 1,
@@ -154,10 +154,10 @@ class _AllProductAdminState extends State<AllProductAdmin> {
 
   Widget buildFloatingButton() {
     return FloatingActionButton(
-        backgroundColor: ColorConst.buttonColor,
+        backgroundColor: ColorConst.primaryColor,
         child: const Icon(
           CupertinoIcons.add,
-          color: ColorConst.white,
+          color: ColorConst.cardBgColor,
         ),
         onPressed: () {
           show(Routes.addProductAdmin);

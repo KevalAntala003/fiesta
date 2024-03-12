@@ -29,9 +29,9 @@ class _OrderPlacedState extends State<OrderPlaced> {
       children: [
         Lottie.asset(ImgConst.done,fit: BoxFit.fill),
         const CustomSize(),
-        const CustomText(text: "Order Placed..",size: 20,weight: true,ls: 0.5,color: ColorConst.hintColor),
+        const CustomText(text: "Order Placed..",size: 20,weight: true,ls: 0.5,color: ColorConst.textSecondaryColor),
         const CustomSize(),
-        const CustomText(text: "Your order delivered soon.",size: 16,color: ColorConst.hintColor,),
+        const CustomText(text: "Your order delivered soon.",size: 16,color: ColorConst.textSecondaryColor,),
         const CustomSize(height: 20,),
         GestureDetector(
           onTap: (){
@@ -44,7 +44,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
             ),
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 30,vertical: 8),
-              child: CustomText(text: "Explore More",color: ColorConst.white,fontFamily: ForFontFamily.rale,size: 18,ls: 1,),
+              child: CustomText(text: "Explore More",color: ColorConst.cardBgColor,fontFamily: ForFontFamily.rale,size: 18,ls: 1,),
             ),
           ),
         ),

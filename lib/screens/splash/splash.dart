@@ -6,6 +6,7 @@ import 'package:fiesta/constant/var_const.dart';
 import 'package:fiesta/helper/firebase_notification.dart';
 import 'package:fiesta/repository/get_data_repository.dart';
 import 'package:fiesta/utils/emuns.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/user_data.dart';
@@ -44,6 +45,7 @@ class _SplashState extends State<Splash> {
         VarConst.currentUser = prefs.getString("userId");
       }
     }).then((value) async {
+      VarConst.userFCMToken = await FirebaseMessaging.instance.getToken();
       await GetDataRepository().getAdminCredentials();
       await GetDataRepository().getProductsData();
       GetDataRepository().getBestSeller();

@@ -59,7 +59,7 @@ class _CartScreenUserState extends State<CartScreenUser> {
               : CustomText(
                   text: "Total Amount : rupeesIcon${totalAmount.value}",
                   align: TextAlign.start,
-                  color: ColorConst.hintColor,
+                  color: ColorConst.textSecondaryColor,
                 )),
           buildListView()
         ],
@@ -75,6 +75,7 @@ class _CartScreenUserState extends State<CartScreenUser> {
         CustomText(
           text: "Cart",
           size: 28,
+          color: ColorConst.textPrimaryColor,
           weight: true,
         ),
         CustomSize(
@@ -100,8 +101,8 @@ class _CartScreenUserState extends State<CartScreenUser> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
                           side: const BorderSide(
-                              color: ColorConst.hintColor, width: 0.2)),
-                      tileColor: ColorConst.white,
+                              color: ColorConst.textSecondaryColor, width: 0.2)),
+                      tileColor: ColorConst.cardBgColor,
                       onTap: () => show(Routes.shoeInfoScreenAdmin,
                           argument: cartItems[index].shoeData),
                       leading: CachedNetworkImage(
@@ -116,10 +117,13 @@ class _CartScreenUserState extends State<CartScreenUser> {
                       title: CustomText(
                         text: cartItems[index].shoeData!.name!,
                         size: 18,
+                        color: ColorConst.textPrimaryColor,
                         align: TextAlign.start,
                         ls: 0.5,
                       ),
-                      subtitle: Text('Qty : ${cartItems[index].qty}'),
+                      subtitle: Text('Qty : ${cartItems[index].qty}',style: TextStyle(
+                        color: ColorConst.textSecondaryColor
+                      ),),
                     );
                   },
                   separatorBuilder: (BuildContext context, index) {
@@ -165,7 +169,7 @@ class _CartScreenUserState extends State<CartScreenUser> {
                       totalAmount: totalAmount.value),cartItems,totalAmount.value]);
                 },
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorConst.buttonColor,
+                    backgroundColor: ColorConst.primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14))),
                 child: const CustomText(

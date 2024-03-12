@@ -91,7 +91,7 @@ class _TermsScreenState extends State<TermsScreen> {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
-                    color: ColorConst.white
+                    color: ColorConst.cardBgColor
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -99,8 +99,7 @@ class _TermsScreenState extends State<TermsScreen> {
                     text: subTitles[index],
                     size: 16,
                     align: TextAlign.start,
-                    color: ColorConst.grey,
-                  ),
+                    color: ColorConst.textSecondaryColor,                  ),
                 ),
               )
             ],

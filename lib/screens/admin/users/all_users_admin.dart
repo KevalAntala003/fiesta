@@ -81,15 +81,15 @@ class _AllUsersAdminState extends State<AllUsersAdmin> {
               child: ListTile(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
-                    side: const BorderSide(color: ColorConst.hintColor,width: 0.2)
+                    side: const BorderSide(color: ColorConst.textSecondaryColor,width: 0.2)
                 ),
                 onTap: (){
                   show(Routes.userDataScreenAdmin,argument: user);
                 },
-                tileColor: ColorConst.white,
+                tileColor: ColorConst.cardBgColor,
                 leading: const Icon(Icons.account_circle_rounded),
                 title: CustomText(text: user.name!,size: 18,align: TextAlign.start,ls: 0.5,),
-                subtitle: CustomText(text: 'Total Orders : ${user.orderList!.length}',overflow: TextOverflow.ellipsis,align: TextAlign.start,size: 16,color: ColorConst.grey,),
+                subtitle: CustomText(text: 'Total Orders : ${user.orderList!.length}',overflow: TextOverflow.ellipsis,align: TextAlign.start,size: 16,color: ColorConst.textSecondaryColor,),
               ),
             );
           }).toList(),

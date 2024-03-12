@@ -45,7 +45,7 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConst.bgColor,
       body: buildBody(),
     );
   }
@@ -80,7 +80,7 @@ class _CreateAccountState extends State<CreateAccount> {
             const CustomText(
               text: "Fill Your Details to Continue",
               size: 16,
-              color: ColorConst.grey,
+              color: ColorConst.textSecondaryColor,
             ),
             const CustomSize(
               height: 20,
@@ -88,7 +88,7 @@ class _CreateAccountState extends State<CreateAccount> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 9),
-              decoration: BoxDecoration(color: ColorConst.backColor, borderRadius: BorderRadius.circular(14)),
+              decoration: BoxDecoration(color: ColorConst.cardBgColor, borderRadius: BorderRadius.circular(14)),
               child: Theme(
                 data: Theme.of(context).copyWith(
                     buttonTheme: ButtonTheme.of(context).copyWith(
@@ -103,7 +103,8 @@ class _CreateAccountState extends State<CreateAccount> {
                           ),
                         ),
                       ),
-                      dropdownColor: ColorConst.white,
+
+                      dropdownColor: ColorConst.cardBgColor,
                       borderRadius: BorderRadius.circular(14),
                       value: selectedUserType.value,
                       isExpanded: true,
@@ -115,7 +116,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 child: Row(
                                   children: [
                                     CustomText(
-                                      color: ColorConst.grey,
+                                      color: ColorConst.textSecondaryColor,
                                       ls: 0.5,
                                       text: userType[index],
                                     ),
@@ -131,16 +132,16 @@ class _CreateAccountState extends State<CreateAccount> {
             const CustomSize(
               height: 20,
             ),
-            CustomTextFormField(fieldColor: ColorConst.backColor, text: "Your Name", hintText: "xxxxxxxx", controller: nameController),
+            CustomTextFormField(fieldColor: ColorConst.cardBgColor, text: "Your Name", hintText: "xxxxxxxx", controller: nameController),
             const CustomSize(
               height: 20,
             ),
             CustomTextFormField(
-                fieldColor: ColorConst.backColor, text: "Your Address", hintText: "24-B, new stallion street", controller: addressController),
+                fieldColor: ColorConst.cardBgColor, text: "Your Address", hintText: "24-B, new stallion street", controller: addressController),
             const CustomSize(
               height: 20,
             ),
-            CustomTextFormField(fieldColor: ColorConst.backColor, text: "Email Address", hintText: "xyz@gmail.com", controller: emailController),
+            CustomTextFormField(fieldColor: ColorConst.cardBgColor, text: "Email Address", hintText: "xyz@gmail.com", controller: emailController),
             const CustomSize(
               height: 20,
             ),
@@ -158,14 +159,14 @@ class _CreateAccountState extends State<CreateAccount> {
       children: [
         const Row(
           children: [
-            CustomText(text: "Password", color: ColorConst.grey, fontFamily: ForFontFamily.rale),
+            CustomText(text: "Password", color: ColorConst.textSecondaryColor, fontFamily: ForFontFamily.rale),
           ],
         ),
         const CustomSize(),
         Obx(
           () => TextFormField(
             textInputAction: TextInputAction.next,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold,color: ColorConst.textPrimaryColor),
             controller: passwordController,
             validator: (value) {
               if (value!.isEmpty) {
@@ -176,15 +177,15 @@ class _CreateAccountState extends State<CreateAccount> {
             obscureText: isView.value,
             decoration: InputDecoration(
               filled: true,
-              fillColor: ColorConst.backColor,
+              fillColor: ColorConst.cardBgColor,
               suffixIcon: IconButton(
                 onPressed: () {
                   isView.value = !isView.value;
                 },
-                icon: isView.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+                icon: isView.value ? const Icon(Icons.visibility_off,color: ColorConst.textPrimaryColor,) : const Icon(Icons.visibility,color: ColorConst.textPrimaryColor,),
               ),
               hintText: ".......",
-              hintStyle: const TextStyle(color: ColorConst.grey, fontWeight: FontWeight.bold),
+              hintStyle: const TextStyle(color: ColorConst.textSecondaryColor, fontWeight: FontWeight.bold),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
             ),
           ),
@@ -200,13 +201,16 @@ class _CreateAccountState extends State<CreateAccount> {
         const CustomText(
           text: "Already Have Account?",
           size: 16,
-          color: ColorConst.grey,
+          color: ColorConst.textSecondaryColor,
         ),
         TextButton(
           onPressed: () {
             show(Routes.signIn);
           },
-          child: const CustomText(text: "Sign In"),
+          child: const CustomText(
+            text: "Sign In",
+            color: ColorConst.primaryColor,
+          ),
         )
       ],
     );
@@ -218,7 +222,7 @@ class _CreateAccountState extends State<CreateAccount> {
           ? ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
-                  backgroundColor: ColorConst.buttonColor,
+                  backgroundColor: ColorConst.primaryColor,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
               onPressed: () {
                 Get.snackbar("Wait", "Details checking is in process");
@@ -287,15 +291,14 @@ class _CreateAccountState extends State<CreateAccount> {
     } on FirebaseAuthException catch (e) {
       VarConst.isLoading.value = false;
       AppSnackBar.showErrorSnackBar(
-        message: e.message??"",
+        message: e.message ?? "",
         title: "error",
       );
     } catch (e) {
       VarConst.isLoading.value = false;
       log(e.toString());
       AppSnackBar.showErrorSnackBar(
-        message: e.toString()
-        ,
+        message: e.toString(),
         title: "error",
       );
     }

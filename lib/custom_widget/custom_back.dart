@@ -18,11 +18,13 @@ class CustomBack extends StatelessWidget {
       child: Container(
           height: 50,
           width: 50,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: isWhite ? Colors.white : ColorConst.backColor
-          ),
-          child: const Center(child: Icon(Icons.arrow_back_ios_new_rounded,size: 20,))),
+          decoration: BoxDecoration(shape: BoxShape.circle, color: ColorConst.cardBgColor),
+          child: const Center(
+              child: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 20,
+            color: ColorConst.textPrimaryColor,
+          ))),
     );
   }
 }

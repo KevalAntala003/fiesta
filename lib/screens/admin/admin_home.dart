@@ -31,7 +31,7 @@ class _AdminHomeState extends State<AdminHome> {
   @override
   Widget build(BuildContext context) {
     return SideMenu(
-      background: ColorConst.blue,
+      background: ColorConst.primaryColor,
       key: sideMenuKey,
       menu: buildDrawer(),
       onChange: (val) {
@@ -141,8 +141,8 @@ class _AdminHomeState extends State<AdminHome> {
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: ListTile(
                 shape:
-                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(14), side: const BorderSide(color: ColorConst.hintColor, width: 0.2)),
-                tileColor: ColorConst.white,
+                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(14), side: const BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
+                tileColor: ColorConst.cardBgColor,
                 onTap: () {
                   show(Routes.showOrderInfoAdmin, argument: [orderData, document.id]);
                 },
@@ -172,7 +172,7 @@ class _AdminHomeState extends State<AdminHome> {
             text: "Admin",
             size: 32,
             weight: true,
-            color: ColorConst.white,
+            color: ColorConst.cardBgColor,
             fontFamily: ForFontFamily.rale,
           ),
           ListTile(

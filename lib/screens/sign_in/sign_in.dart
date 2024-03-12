@@ -12,6 +12,7 @@ import 'package:fiesta/utils/common_snack_bar.dart';
 import 'package:fiesta/utils/emuns.dart';
 import 'package:fiesta/utils/show.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConst.bgColor,
       body: buildBody(),
     );
   }
@@ -72,12 +73,12 @@ class _SignInState extends State<SignIn> {
             const CustomText(
               text: "Fill Your Details to Continue",
               size: 16,
-              color: ColorConst.grey,
+              color: ColorConst.textSecondaryColor,
             ),
             const CustomSize(
               height: 30,
             ),
-            CustomTextFormField(fieldColor: ColorConst.backColor, text: "Email Address", hintText: "xyz@gmail.com", controller: emailController),
+            CustomTextFormField(fieldColor: ColorConst.cardBgColor, text: "Email Address", hintText: "xyz@gmail.com", controller: emailController),
             const CustomSize(
               height: 30,
             ),
@@ -100,14 +101,14 @@ class _SignInState extends State<SignIn> {
       children: [
         const Row(
           children: [
-            CustomText(text: "Password", color: ColorConst.grey, fontFamily: ForFontFamily.rale),
+            CustomText(text: "Password", color: ColorConst.textSecondaryColor, fontFamily: ForFontFamily.rale),
           ],
         ),
         const CustomSize(),
         Obx(
           () => TextFormField(
             textInputAction: TextInputAction.next,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold, color: ColorConst.textPrimaryColor),
             controller: passwordController,
             validator: (value) {
               if (value!.isEmpty) {
@@ -118,15 +119,23 @@ class _SignInState extends State<SignIn> {
             obscureText: isView.value,
             decoration: InputDecoration(
               filled: true,
-              fillColor: ColorConst.backColor,
+              fillColor: ColorConst.cardBgColor,
               suffixIcon: IconButton(
                 onPressed: () {
                   isView.value = !isView.value;
                 },
-                icon: isView.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+                icon: isView.value
+                    ? const Icon(
+                        Icons.visibility_off,
+                        color: ColorConst.textPrimaryColor,
+                      )
+                    : const Icon(
+                        Icons.visibility,
+                        color: ColorConst.textPrimaryColor,
+                      ),
               ),
               hintText: ".......",
-              hintStyle: const TextStyle(color: ColorConst.grey, fontWeight: FontWeight.bold),
+              hintStyle: const TextStyle(color: ColorConst.textSecondaryColor, fontWeight: FontWeight.bold),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
             ),
           ),
@@ -146,7 +155,7 @@ class _SignInState extends State<SignIn> {
           CustomText(
             text: "Recovery Password",
             size: 12,
-            color: ColorConst.grey,
+            color: ColorConst.textSecondaryColor,
           ),
         ],
       ),
@@ -159,7 +168,7 @@ class _SignInState extends State<SignIn> {
           ? ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
-                  backgroundColor: ColorConst.buttonColor,
+                  backgroundColor: ColorConst.primaryColor,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
               onPressed: () {
                 Get.snackbar("Wait", "Details checking is in process");
@@ -178,13 +187,16 @@ class _SignInState extends State<SignIn> {
         const CustomText(
           text: "New User?",
           size: 16,
-          color: ColorConst.grey,
+          color: ColorConst.textSecondaryColor,
         ),
         TextButton(
           onPressed: () {
             show(Routes.createAccount);
           },
-          child: const CustomText(text: "Create Account"),
+          child: const CustomText(
+            text: "Create Account",
+            color: ColorConst.primaryColor,
+          ),
         )
       ],
     );
@@ -213,6 +225,8 @@ class _SignInState extends State<SignIn> {
         VarConst.isLoading.value = true;
         VarConst.credential =
             await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text.trim(), password: passwordController.text.trim());
+        VarConst.userFCMToken = await FirebaseMessaging.instance.getToken();
+
         VarConst.isLoading.value = false;
         VarConst.currentUser = VarConst.credential!.user!.uid;
         SharedPreferences prefs = await SharedPreferences.getInstance();

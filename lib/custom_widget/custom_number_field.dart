@@ -29,13 +29,13 @@ class CustomNumberTextFormField extends StatelessWidget {
           text: text,
           weight: true,
           size: 16,
-          color: ColorConst.grey,
+          color: ColorConst.textSecondaryColor,
           fontFamily: ForFontFamily.rale,
         ),
         const CustomSize(),
         TextFormField(
           textInputAction: TextInputAction.next,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold,color: ColorConst.textPrimaryColor),
           controller: controller,
           maxLength: length,
           validator: (value) {
@@ -50,10 +50,10 @@ class CustomNumberTextFormField extends StatelessWidget {
           ],
           decoration: InputDecoration(
             filled: true,
-            fillColor: fieldColor ?? ColorConst.white,
+            fillColor: fieldColor ?? ColorConst.cardBgColor,
             hintText: hintText ?? "",
             hintStyle: const TextStyle(
-                color: ColorConst.grey, fontWeight: FontWeight.bold),
+                color: ColorConst.textSecondaryColor, fontWeight: FontWeight.bold),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
                 borderSide: BorderSide.none),
