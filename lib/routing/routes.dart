@@ -25,4 +25,5 @@ class Routes{
   static const String cartScreenUser = "/cartScreenUser";
   static const String termsScreen = "/termsScreen";
   static const String resellerScreen = "/resellerScreen";
+  static const String paymentsScreen = "/paymentsScreen";
 }

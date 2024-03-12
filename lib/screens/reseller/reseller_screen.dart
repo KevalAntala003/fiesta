@@ -155,14 +155,14 @@ class _ResellerScreenState extends State<ResellerScreen> {
             leading: const Icon(Icons.card_travel),
             title: const Text('Products'),
           ),
-          ListTile(
-            onTap: () {
-              sideMenuKey.currentState!.closeSideMenu();
-              show(Routes.allUserAdmin);
-            },
-            leading: const Icon(Icons.account_circle_rounded),
-            title: const Text("Users"),
-          ),
+          // ListTile(
+          //   onTap: () {
+          //     sideMenuKey.currentState!.closeSideMenu();
+          //     show(Routes.allUserAdmin);
+          //   },
+          //   leading: const Icon(Icons.account_circle_rounded),
+          //   title: const Text("Users"),
+          // ),
           ListTile(
             onTap: () async {
               FirebaseAuth.instance.signOut();
@@ -197,8 +197,12 @@ class _ResellerScreenState extends State<ResellerScreen> {
   }
 
   Widget buildListView() {
+    log('VarConst.currentUser!==>${VarConst.currentUser!}');
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('products').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('products')
+          .where("seller", isEqualTo: VarConst.currentUser!)
+          .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());

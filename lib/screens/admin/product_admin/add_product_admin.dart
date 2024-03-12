@@ -258,7 +258,6 @@ class _AddProductAdminState extends State<AddProductAdmin> {
             : CustomButton(
                 onPressed: () async {
                   try {
-
                     VarConst.isLoading.value = true;
                     String imgUrl = await uploadDocument(image!);
                     await FirebaseFirestore.instance
@@ -272,7 +271,9 @@ class _AddProductAdminState extends State<AddProductAdmin> {
                       "isLive": true,
                       "ShoesSize":shoeSize.where((element) => element.isSelected ?? false).toList().map((e) => e.size).toList(),
                       "price": int.parse(priceController.text),
-                      "category": selectedCategory.value
+                      "category": selectedCategory.value,
+                      "FCMToken":VarConst.userFCMToken,
+                      "seller":VarConst.currentUser
                     });
                     VarConst.isLoading.value = false;
                     await GetDataRepository().getProductsData();

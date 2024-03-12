@@ -57,7 +57,7 @@ class _CartScreenUserState extends State<CartScreenUser> {
           Obx(() => totalAmount.value == 0
               ? const SizedBox()
               : CustomText(
-                  text: "Total Amount : rupeesIcon${totalAmount.value}",
+                  text: "Total Amount : $rupeesIcon${totalAmount.value}",
                   align: TextAlign.start,
                   color: ColorConst.hintColor,
                 )),
@@ -90,12 +90,16 @@ class _CartScreenUserState extends State<CartScreenUser> {
           ? const Center(child: CircularProgressIndicator())
           : cartItems.isEmpty
               ? const Center(
-                  child: CustomText(text: "Cart is Empty!!"),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 118.0),
+                    child: CustomText(text: "Cart is Empty!!",size: 20,),
+                  ),
                 )
               : ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, index) {
+
                     return ListTile(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
@@ -130,68 +134,76 @@ class _CartScreenUserState extends State<CartScreenUser> {
   }
 
   Widget buildFloatingButtons() {
-    return cartItems.isEmpty ? const SizedBox() : Padding(
-      padding: const EdgeInsets.all(VarConst.padding),
-      child: Row(
-        children: [
-          Expanded(
-              child: ElevatedButton(
-            onPressed: () async {
-              await onClearCart();
-            },
-            style: ElevatedButton.styleFrom(
-                backgroundColor: ColorConst.red,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14))),
-            child: const CustomText(
-              text: "Clear Cart",
-              color: ColorConst.white,
+    return cartItems.isEmpty
+        ? const SizedBox()
+        : Padding(
+            padding: const EdgeInsets.all(VarConst.padding),
+            child: Row(
+              children: [
+                Expanded(
+                    child: ElevatedButton(
+                  onPressed: () async {
+                    await onClearCart();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorConst.red,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14))),
+                  child: const CustomText(
+                    text: "Clear Cart",
+                    color: ColorConst.white,
+                  ),
+                )),
+                const CustomSize(),
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        String orderId =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        showOff(Routes.confirmAddressUser, argument: [
+                          OrderData(
+                              customerId: VarConst.currentUser,
+                              items: List.generate(
+                                  cartItems.length,
+                                  (index) => Item(
+                                      productId: cartItems[index].shoeData!.id,
+                                      qty: cartItems[index].qty)),
+                              customerName: ListConst.currentUser.name,
+                              orderId: orderId,
+                              totalAmount: totalAmount.value),
+                          cartItems,
+                          totalAmount.value
+                        ]);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorConst.buttonColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14))),
+                      child: const CustomText(
+                          text: "Place Order", color: ColorConst.white)),
+                ),
+              ],
             ),
-          )),
-          const CustomSize(),
-          Expanded(
-              child: ElevatedButton(
-                onPressed: () {
-                  String orderId = DateTime.now().millisecondsSinceEpoch.toString();
-                  showOff(Routes.confirmAddressUser,argument: [OrderData(
-                      customerId: VarConst.currentUser,
-                      items: List.generate(
-                          cartItems.length,
-                              (index) => Item(
-                              productId: cartItems[index].shoeData!.id,
-                              qty: cartItems[index].qty)),
-                      customerName: ListConst.currentUser.name,
-                      orderId: orderId,
-                      totalAmount: totalAmount.value),cartItems,totalAmount.value]);
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorConst.buttonColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14))),
-                child: const CustomText(
-                        text: "Place Order", color: ColorConst.white)),
-          ),
-        ],
-      ),
-    );
+          );
   }
 
-    void getTotalAmount() {
-      for (int i = 0; i < cartItems.length; i++) {
-        totalAmount.value = totalAmount.value +
-            (cartItems[i].shoeData!.price! * cartItems[i].qty!);
-      }
+  void getTotalAmount() {
+    for (int i = 0; i < cartItems.length; i++) {
+      totalAmount.value = totalAmount.value +
+          (cartItems[i].shoeData!.price! * cartItems[i].qty!);
     }
+  }
 
   Future<void> getCartItems() async {
     VarConst.isLoading.value = true;
     try {
       for (int i = 0; i < ListConst.currentUser.cart!.length; i++) {
-        log('ListConst.currentUser.cart!--->${ListConst.currentUser.cart!}');
+        log('ListConst.currentUser.cart!--->${ListConst.currentUser.cart![i]['id']}');
         if (cartItems.any((element) =>
             element.shoeData!.id == ListConst.currentUser.cart![i]['id'])) {
           for (int j = 0; j < cartItems.length; j++) {
-            if (ListConst.currentUser.cart![i]['id'] == cartItems[j].shoeData!.id) {
+            if (ListConst.currentUser.cart![i]['id'] ==
+                cartItems[j].shoeData!.id) {
               if (cartItems[j].qty != null) {
                 cartItems[j].qty = cartItems[j].qty! + 1;
               }
