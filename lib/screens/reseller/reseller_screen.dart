@@ -34,7 +34,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
   @override
   Widget build(BuildContext context) {
     return SideMenu(
-      background: ColorConst.bottomSheetBgColor,
+      background: ColorConst.primaryColor,
       key: sideMenuKey,
       menu: buildDrawer(),
       onChange: (val) {
@@ -135,7 +135,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
             text: "Seller",
             size: 32,
             weight: true,
-            color: ColorConst.textPrimaryColor,
+            color: ColorConst.white,
             fontFamily: ForFontFamily.rale,
           ),
           ListTile(
@@ -145,12 +145,12 @@ class _ResellerScreenState extends State<ResellerScreen> {
             },
             leading: const Icon(
               Icons.home,
-              color: ColorConst.textPrimaryColor,
+              color: ColorConst.white,
             ),
             title: const Text(
               'Home',
               style: TextStyle(
-                color: ColorConst.textPrimaryColor,
+                color: ColorConst.white,
               ),
             ),
           ),
@@ -161,12 +161,12 @@ class _ResellerScreenState extends State<ResellerScreen> {
             },
             leading: const Icon(
               Icons.card_travel,
-              color: ColorConst.textPrimaryColor,
+              color: ColorConst.white,
             ),
             title: const Text(
               'Products',
               style: TextStyle(
-                color: ColorConst.textPrimaryColor,
+                color: ColorConst.white,
               ),
             ),
           ),
@@ -187,12 +187,12 @@ class _ResellerScreenState extends State<ResellerScreen> {
             },
             leading: const Icon(
               Icons.logout,
-              color: ColorConst.textPrimaryColor,
+              color: ColorConst.white,
             ),
             title: const Text(
               'Sign Out',
               style: TextStyle(
-                color: ColorConst.textPrimaryColor,
+                color: ColorConst.white,
               ),
             ),
           ),

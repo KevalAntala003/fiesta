@@ -70,7 +70,7 @@ class _UserHomeState extends State<UserHome> {
   @override
   Widget build(BuildContext context) {
     return SideMenu(
-      background: ColorConst.bottomSheetBgColor,
+      background: ColorConst.primaryColor,
       key: sideMenuKey,
       menu: buildDrawer(),
       child: PopScope(
@@ -207,7 +207,124 @@ class _UserHomeState extends State<UserHome> {
                         ),
                       ),
                       const CustomSize(),
-                      buildBestSellerShoes(),
+                      // buildBestSellerShoes(),
+                      StreamBuilder(
+                        stream:FirebaseFirestore.instance.collection('products').where("category", isEqualTo: 'BestSeller').snapshots(),
+                        builder: (context, snapshot) {
+
+                          if (snapshot.hasError) {
+                            return Center(child: Text('Error: ${snapshot.error}'));
+                          }
+                          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                            return const Center(
+                                child: Text(
+                                  'No Products available',
+                                  style: TextStyle(color: ColorConst.textPrimaryColor),
+                                ));
+                          }
+
+                        return CarouselSlider(
+                          options: CarouselOptions(autoPlay: false, enlargeCenterPage: true, height: Get.height * 0.25),
+                          items: snapshot.data!.docs.map((DocumentSnapshot document) {
+                            ShoeData i = shoeDataFromJson(jsonEncode(document.data()));
+                            return GestureDetector(
+                              onTap: () {
+                                show(Routes.shoeInfoScreen, argument: i);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), color: ColorConst.cardBgColor),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: CachedNetworkImage(
+                                          imageUrl: i.imgUrl!,
+                                          fit: BoxFit.cover,
+                                          imageBuilder: (context, imageProvider) => Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(12),
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) => const Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            CustomText(
+                                              text: "${i.name}",
+                                              overflow: TextOverflow.ellipsis,
+                                              color: ColorConst.textPrimaryColor,
+                                              size: 20,
+                                            ),
+                                            CustomText(
+                                              text: i.category.toString(),
+                                              size: 14,
+                                              color: ColorConst.textSecondaryColor,
+                                            ),
+                                            const CustomSize(
+                                              height: 5,
+                                            ),
+                                            CustomText(
+                                              text: "$rupeesIcon ${i.price}",
+                                              size: 20,
+                                              color: ColorConst.primaryColor,
+                                            ),
+                                            const CustomSize(),
+                                            SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Row(
+                                                children: List.generate(i.shoesSize!.length, (index) {
+                                                  return Container(
+                                                    margin: const EdgeInsets.symmetric(horizontal: 2),
+                                                    height: 25,
+                                                    width: 25,
+                                                    alignment: Alignment.center,
+                                                    decoration:
+                                                    BoxDecoration(borderRadius: BorderRadius.circular(6), border: Border.all(color: ColorConst.primaryColor)),
+                                                    child: CustomText(
+                                                      text: i.shoesSize![index],
+                                                      weight: true,
+                                                      size: 10,
+                                                      color: ColorConst.primaryColor,
+                                                      fontFamily: ForFontFamily.rale,
+                                                    ),
+                                                  );
+                                                }),
+                                              ),
+                                            ),
+                                            const CustomSize(),
+                                            Text(
+                                              i.des.toString(),
+                                              textAlign: TextAlign.start,
+                                              style:
+                                              const TextStyle(fontSize: 14, color: ColorConst.textSecondaryColor, overflow: TextOverflow.fade, fontFamily: "pop"),
+                                              maxLines: 4,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList()
+                        );
+                      },)
                     ],
                   )
                 : const SizedBox.shrink(),
@@ -431,31 +548,31 @@ class _UserHomeState extends State<UserHome> {
             size: 32,
             overflow: TextOverflow.fade,
             weight: true,
-            color: ColorConst.textPrimaryColor,
+            color: ColorConst.white,
             fontFamily: ForFontFamily.rale,
           ),
           ListTile(
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
             },
-            leading: const Icon(Icons.home, color: ColorConst.textPrimaryColor),
-            title: const Text('Home', style: TextStyle(color: ColorConst.textPrimaryColor)),
+            leading: const Icon(Icons.home, color: ColorConst.white),
+            title: const Text('Home', style: TextStyle(color: ColorConst.white)),
           ),
           ListTile(
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
               show(Routes.profileUser);
             },
-            leading: const Icon(Icons.card_travel, color: ColorConst.textPrimaryColor),
-            title: const Text('Profile', style: TextStyle(color: ColorConst.textPrimaryColor)),
+            leading: const Icon(Icons.card_travel, color: ColorConst.white),
+            title: const Text('Profile', style: TextStyle(color: ColorConst.white)),
           ),
           ListTile(
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
               show(Routes.orderUser);
             },
-            leading: const Icon(Icons.account_circle_rounded, color: ColorConst.textPrimaryColor),
-            title: const Text("Orders", style: TextStyle(color: ColorConst.textPrimaryColor)),
+            leading: const Icon(Icons.account_circle_rounded, color: ColorConst.white),
+            title: const Text("Orders", style: TextStyle(color: ColorConst.white)),
           ),
           ListTile(
             onTap: () async {
@@ -465,8 +582,8 @@ class _UserHomeState extends State<UserHome> {
               ListConst.currentUser = UserData(orderList: [], email: "Unknown", cart: [], address: "Unknown", name: "Unknown", uId: "Unknown");
               showOffAll(Routes.signIn);
             },
-            leading: const Icon(Icons.logout, color: ColorConst.textPrimaryColor),
-            title: const Text('Sign Out', style: TextStyle(color: ColorConst.textPrimaryColor)),
+            leading: const Icon(Icons.logout, color: ColorConst.white),
+            title: const Text('Sign Out', style: TextStyle(color: ColorConst.white)),
           ),
           const Spacer(),
           DefaultTextStyle(
@@ -483,7 +600,7 @@ class _UserHomeState extends State<UserHome> {
                     sideMenuKey.currentState!.closeSideMenu();
                     show(Routes.termsScreen);
                   },
-                  child: const Text('Terms of Service | Privacy Policy', style: TextStyle(color: ColorConst.textSecondaryColor))),
+                  child: const Text('Terms of Service | Privacy Policy', style: TextStyle(color: ColorConst.white))),
             ),
           ),
         ],

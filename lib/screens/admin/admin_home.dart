@@ -8,6 +8,7 @@ import 'package:fiesta/models/user_data.dart';
 import 'package:fiesta/routing/routes.dart';
 import 'package:fiesta/utils/show.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -78,7 +79,7 @@ class _AdminHomeState extends State<AdminHome> {
                   height: VarConst.sizeOnAppBar,
                 ),
                 buildAppbar(),
-                buildBody()
+                Expanded(child: buildBody())
               ],
             ),
           ),
@@ -133,7 +134,7 @@ class _AdminHomeState extends State<AdminHome> {
           return const Center(child: Text('No Orders available'));
         }
         return ListView(
-          physics: const NeverScrollableScrollPhysics(),
+          // physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             OrderData orderData = orderDataFromJson(jsonEncode(document.data()));
@@ -152,7 +153,9 @@ class _AdminHomeState extends State<AdminHome> {
                   align: TextAlign.start,
                   ls: 0.5,
                 ),
-                subtitle: Text('Amount: $rupeesIcon${orderData.totalAmount}'),
+                subtitle: Text('Amount: $rupeesIcon${orderData.totalAmount}',
+                style: const TextStyle(color: ColorConst.textSecondaryColor),
+                ),
               ),
             );
           }).toList(),
@@ -172,7 +175,7 @@ class _AdminHomeState extends State<AdminHome> {
             text: "Admin",
             size: 32,
             weight: true,
-            color: ColorConst.cardBgColor,
+            color: ColorConst.white,
             fontFamily: ForFontFamily.rale,
           ),
           ListTile(

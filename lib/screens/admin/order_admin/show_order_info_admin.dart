@@ -30,6 +30,7 @@ class _ShowOrderInfoAdminState extends State<ShowOrderInfoAdmin> {
   @override
   void initState() {
     super.initState();
+    log('orderData---->${orderData.toJson()}');
     getImages();
   }
 
@@ -137,13 +138,16 @@ class _ShowOrderInfoAdminState extends State<ShowOrderInfoAdmin> {
   Future<void> getImages() async {
     try {
       for (int i = 0; i < orderData.items!.length; i++) {
+        log('orderData.items![i].productId--->${orderData.items![i].productId}');
         await FirebaseFirestore.instance
             .collection("products")
             .doc(orderData.items![i].productId.toString())
             .get()
             .then((value) {
+              log('value===>${value.data()}');
           shoeImages.add(shoeDataFromJson(jsonEncode(value.data())));
         });
+        log('shoeImages--->${shoeImages.first.toJson()}');
       }
       isLoadingOrders.value = false;
     } catch (e) {

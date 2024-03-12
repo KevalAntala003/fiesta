@@ -68,7 +68,10 @@ class _AllProductAdminState extends State<AllProductAdmin> {
 
   Widget buildListView() {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('products').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('products')
+          .where("seller", isEqualTo: VarConst.currentUser!)
+          .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
