@@ -22,7 +22,7 @@ import '../../routing/routes.dart';
 import '../../utils/show.dart';
 
 class CreateAccount extends StatefulWidget {
-  const CreateAccount({super.key});
+   CreateAccount({super.key});
 
   @override
   State<CreateAccount> createState() => _CreateAccountState();
@@ -53,41 +53,41 @@ class _CreateAccountState extends State<CreateAccount> {
   Widget buildBody() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(VarConst.padding),
+        padding:  EdgeInsets.all(VarConst.padding),
         child: Column(
           children: [
-            const CustomSize(
+             CustomSize(
               height: VarConst.sizeOnAppBar,
             ),
-            const Row(
+             Row(
               children: [
                 CustomBack(
                   isWhite: false,
                 ),
               ],
             ),
-            const CustomSize(
+             CustomSize(
               height: 8,
             ),
-            const CustomText(
+             CustomText(
               text: "Register Account",
               size: 32,
               weight: true,
             ),
-            const CustomSize(
+             CustomSize(
               height: 5,
             ),
-            const CustomText(
+             CustomText(
               text: "Fill Your Details to Continue",
               size: 16,
               color: ColorConst.textSecondaryColor,
             ),
-            const CustomSize(
+             CustomSize(
               height: 20,
             ),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 9),
+              padding:  EdgeInsets.symmetric(vertical: 9),
               decoration: BoxDecoration(color: ColorConst.cardBgColor, borderRadius: BorderRadius.circular(14)),
               child: Theme(
                 data: Theme.of(context).copyWith(
@@ -96,7 +96,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 )),
                 child: Obx(() => DropdownButton(
                       underline: Container(
-                        decoration: const ShapeDecoration(
+                        decoration:  ShapeDecoration(
                           shape: RoundedRectangleBorder(
                             side: BorderSide(width: 0, style: BorderStyle.none),
                             borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -129,20 +129,20 @@ class _CreateAccountState extends State<CreateAccount> {
                     )),
               ),
             ),
-            const CustomSize(
+             CustomSize(
               height: 20,
             ),
             CustomTextFormField(fieldColor: ColorConst.cardBgColor, text: "Your Name", hintText: "xxxxxxxx", controller: nameController),
-            const CustomSize(
+             CustomSize(
               height: 20,
             ),
             CustomTextFormField(
                 fieldColor: ColorConst.cardBgColor, text: "Your Address", hintText: "24-B, new stallion street", controller: addressController),
-            const CustomSize(
+             CustomSize(
               height: 20,
             ),
             CustomTextFormField(fieldColor: ColorConst.cardBgColor, text: "Email Address", hintText: "xyz@gmail.com", controller: emailController),
-            const CustomSize(
+             CustomSize(
               height: 20,
             ),
             buildPasswordField(),
@@ -157,16 +157,16 @@ class _CreateAccountState extends State<CreateAccount> {
   Widget buildPasswordField() {
     return Column(
       children: [
-        const Row(
+         Row(
           children: [
             CustomText(text: "Password", color: ColorConst.textSecondaryColor, fontFamily: ForFontFamily.rale),
           ],
         ),
-        const CustomSize(),
+         CustomSize(),
         Obx(
           () => TextFormField(
             textInputAction: TextInputAction.next,
-            style: const TextStyle(fontWeight: FontWeight.bold,color: ColorConst.textPrimaryColor),
+            style:  TextStyle(fontWeight: FontWeight.bold,color: ColorConst.textPrimaryColor),
             controller: passwordController,
             validator: (value) {
               if (value!.isEmpty) {
@@ -182,10 +182,10 @@ class _CreateAccountState extends State<CreateAccount> {
                 onPressed: () {
                   isView.value = !isView.value;
                 },
-                icon: isView.value ? const Icon(Icons.visibility_off,color: ColorConst.textPrimaryColor,) : const Icon(Icons.visibility,color: ColorConst.textPrimaryColor,),
+                icon: isView.value ?  Icon(Icons.visibility_off,color: ColorConst.textPrimaryColor,) :  Icon(Icons.visibility,color: ColorConst.textPrimaryColor,),
               ),
               hintText: ".......",
-              hintStyle: const TextStyle(color: ColorConst.textSecondaryColor, fontWeight: FontWeight.bold),
+              hintStyle:  TextStyle(color: ColorConst.textSecondaryColor, fontWeight: FontWeight.bold),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
             ),
           ),
@@ -198,7 +198,7 @@ class _CreateAccountState extends State<CreateAccount> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const CustomText(
+         CustomText(
           text: "Already Have Account?",
           size: 16,
           color: ColorConst.textSecondaryColor,
@@ -207,7 +207,7 @@ class _CreateAccountState extends State<CreateAccount> {
           onPressed: () {
             show(Routes.signIn);
           },
-          child: const CustomText(
+          child:  CustomText(
             text: "Sign In",
             color: ColorConst.primaryColor,
           ),
@@ -221,13 +221,13 @@ class _CreateAccountState extends State<CreateAccount> {
       () => VarConst.isLoading.value
           ? ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(50),
+                  minimumSize:  Size.fromHeight(50),
                   backgroundColor: ColorConst.primaryColor,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
               onPressed: () {
                 Get.snackbar("Wait", "Details checking is in process");
               },
-              child: const CircularProgressIndicator(
+              child:  CircularProgressIndicator(
                 color: Colors.white,
               ))
           : CustomButton(onPressed: () => onCreateAccount(), buttonText: "SignUp"),

@@ -11,7 +11,7 @@ import '../../../constant/var_const.dart';
 import '../../../utils/show.dart';
 
 class ShoeInfoScreenAdmin extends StatefulWidget {
-  const ShoeInfoScreenAdmin({super.key});
+   ShoeInfoScreenAdmin({super.key});
 
   @override
   State<ShoeInfoScreenAdmin> createState() => _ShoeInfoScreenAdminState();
@@ -28,7 +28,7 @@ class _ShoeInfoScreenAdminState extends State<ShoeInfoScreenAdmin> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -40,16 +40,16 @@ class _ShoeInfoScreenAdminState extends State<ShoeInfoScreenAdmin> {
 
   Widget buildBody() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: VarConst.padding),
+      padding:  EdgeInsets.symmetric(horizontal: VarConst.padding),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CustomSize(
+             CustomSize(
               height: VarConst.sizeOnAppBar,
             ),
             buildAppbar(),
-            const CustomSize(
+             CustomSize(
               height: 20,
             ),
             CustomText(
@@ -64,31 +64,31 @@ class _ShoeInfoScreenAdminState extends State<ShoeInfoScreenAdmin> {
               color: ColorConst.textSecondaryColor,
               fontFamily: ForFontFamily.rale,
             ),
-            const CustomSize(),
+             CustomSize(),
             CustomText(text: "$rupeesIcon${shoeData.price}", size: 24),
             SizedBox(
                 width: double.infinity,
                 child: CachedNetworkImage(
                   imageUrl: shoeData.imgUrl!,
-                  placeholder: (context, url) => const Center(
+                  placeholder: (context, url) =>  Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) =>  Icon(Icons.error),
                 )),
-            const CustomSize(),
-            const CustomText(
+             CustomSize(),
+             CustomText(
               text: "Description :",
               size: 16,
               color: ColorConst.textSecondaryColor,
               ls: 0.5,
             ),
-            const CustomSize(),
+             CustomSize(),
             Card(
               elevation: 5,
               color: ColorConst.cardBgColor,
               shadowColor: ColorConst.textSecondaryColor,
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding:  EdgeInsets.all(12.0),
                 child: CustomText(
                   text: "${shoeData.des}",
                   size: 14,

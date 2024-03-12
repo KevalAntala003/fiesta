@@ -10,7 +10,7 @@ class AppSnackBar {
       "",
       "",
       snackPosition: SnackPosition.TOP,
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin:  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       borderRadius: 14,
       snackStyle: SnackStyle.FLOATING,
       messageText: Row(
@@ -19,19 +19,19 @@ class AppSnackBar {
           Expanded(
             child: Text(
               message,
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
             ),
           ),
-          const SizedBox(
+           SizedBox(
             width: 12,
           ),
           InkWell(
             onTap: Get.back,
-            child: const Icon(Icons.close, color: Colors.white, size: 18),
+            child:  Icon(Icons.close, color: Colors.white, size: 18),
           )
         ],
       ),
@@ -41,12 +41,12 @@ class AppSnackBar {
           : title.toLowerCase() == "success"
               ? Colors.green
               : Colors.black45,
-      animationDuration: const Duration(milliseconds: 500),
-      duration: const Duration(seconds: 2),
+      animationDuration:  Duration(milliseconds: 500),
+      duration:  Duration(seconds: 2),
       colorText: Colors.white,
 
       // isDismissible: false,
-      padding: const EdgeInsets.only(left: 12, right: 12, bottom: 20, top: 16),
+      padding:  EdgeInsets.only(left: 12, right: 12, bottom: 20, top: 16),
     );
   }
 }

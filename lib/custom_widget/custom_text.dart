@@ -2,7 +2,7 @@ import 'package:fiesta/constant/color_const.dart';
 import 'package:flutter/material.dart';
 
 class CustomText extends StatefulWidget {
-  const CustomText(
+   CustomText(
       {super.key,
       this.color,
       this.align,

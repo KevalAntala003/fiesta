@@ -9,7 +9,7 @@ import '../../../custom_widget/custom_size.dart';
 import '../../../custom_widget/custom_text.dart';
 
 class ProfileUser extends StatefulWidget {
-  const ProfileUser({super.key});
+   ProfileUser({super.key});
 
   @override
   State<ProfileUser> createState() => _ProfileUserState();
@@ -25,14 +25,14 @@ class _ProfileUserState extends State<ProfileUser> {
 
   Widget buildBody(){
     return SingleChildScrollView(child: Padding(
-      padding: const EdgeInsets.all(VarConst.padding),
+      padding:  EdgeInsets.all(VarConst.padding),
       child: Column(
         children: [
-          const CustomSize(
+           CustomSize(
             height: VarConst.sizeOnAppBar,
           ),
           buildAppbar(),
-          const CustomSize(),
+           CustomSize(),
           buildDataView()
         ],
       ),
@@ -40,7 +40,7 @@ class _ProfileUserState extends State<ProfileUser> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -64,7 +64,7 @@ class _ProfileUserState extends State<ProfileUser> {
 
   Widget buildListTileView({required String title,required String subTitle}){
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding:  EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),

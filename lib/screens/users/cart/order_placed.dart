@@ -10,7 +10,7 @@ import '../../../constant/color_const.dart';
 import '../../../routing/routes.dart';
 
 class OrderPlaced extends StatefulWidget {
-  const OrderPlaced({super.key});
+   OrderPlaced({super.key});
 
   @override
   State<OrderPlaced> createState() => _OrderPlacedState();
@@ -28,11 +28,11 @@ class _OrderPlacedState extends State<OrderPlaced> {
     return Column(
       children: [
         Lottie.asset(ImgConst.done,fit: BoxFit.fill),
-        const CustomSize(),
-        const CustomText(text: "Order Placed..",size: 20,weight: true,ls: 0.5,color: ColorConst.textSecondaryColor),
-        const CustomSize(),
-        const CustomText(text: "Your order delivered soon.",size: 16,color: ColorConst.textSecondaryColor,),
-        const CustomSize(height: 20,),
+         CustomSize(),
+         CustomText(text: "Order Placed..",size: 20,weight: true,ls: 0.5,color: ColorConst.textSecondaryColor),
+         CustomSize(),
+         CustomText(text: "Your order delivered soon.",size: 16,color: ColorConst.textSecondaryColor,),
+         CustomSize(height: 20,),
         GestureDetector(
           onTap: (){
             showOffAll(Routes.userHome);
@@ -42,7 +42,7 @@ class _OrderPlacedState extends State<OrderPlaced> {
               borderRadius: BorderRadius.circular(14),
               color: Colors.blueGrey,
             ),
-            child: const Padding(
+            child:  Padding(
               padding: EdgeInsets.symmetric(horizontal: 30,vertical: 8),
               child: CustomText(text: "Explore More",color: ColorConst.cardBgColor,fontFamily: ForFontFamily.rale,size: 18,ls: 1,),
             ),

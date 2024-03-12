@@ -26,7 +26,7 @@ import '../../constant/img_const.dart';
 import '../../custom_widget/custom_text.dart';
 
 class UserHome extends StatefulWidget {
-  const UserHome({super.key});
+  UserHome({super.key});
 
   @override
   State<UserHome> createState() => _UserHomeState();
@@ -83,18 +83,18 @@ class _UserHomeState extends State<UserHome> {
           } else {
             log("Exit with back");
             Get.dialog(AlertDialog(
-              title: const Text('Confirm Exit'),
-              content: const Text('Are you sure you want to exit?'),
+              title: Text('Confirm Exit'),
+              content: Text('Are you sure you want to exit?'),
               actions: <Widget>[
                 TextButton(
-                  child: const Text('Cancel'),
+                  child: Text('Cancel'),
                   onPressed: () {
                     // User tapped the cancel button, pop the dialog and return false
                     Navigator.of(context).pop(false);
                   },
                 ),
                 TextButton(
-                  child: const Text('Exit'),
+                  child: Text('Exit'),
                   onPressed: () {
                     // User tapped the exit button, pop the dialog and return true
                     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
@@ -107,8 +107,8 @@ class _UserHomeState extends State<UserHome> {
         child: SafeArea(
           child: Scaffold(
             appBar: PreferredSize(
-              preferredSize: const Size(double.infinity, 100),
-              child: Padding(padding: const EdgeInsets.symmetric(vertical: 10), child: buildAppbar()),
+              preferredSize: Size(double.infinity, 100),
+              child: Padding(padding: EdgeInsets.symmetric(vertical: 10), child: buildAppbar()),
             ),
             body: buildBody(),
           ),
@@ -121,7 +121,7 @@ class _UserHomeState extends State<UserHome> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Row(
           children: [
             GestureDetector(
@@ -130,8 +130,8 @@ class _UserHomeState extends State<UserHome> {
               },
               child: Obx(
                 () => Container(
-                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
-                  margin: const EdgeInsets.symmetric(horizontal: 6),
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 18),
+                  margin: EdgeInsets.symmetric(horizontal: 6),
                   decoration: BoxDecoration(
                     color: selectedCategories.value == "All" ? ColorConst.primaryColor : ColorConst.cardBgColor,
                     borderRadius: BorderRadius.circular(16),
@@ -153,8 +153,8 @@ class _UserHomeState extends State<UserHome> {
                 },
                 child: Obx(
                   () => Container(
-                    padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
-                    margin: const EdgeInsets.symmetric(horizontal: 6),
+                    padding: EdgeInsets.symmetric(vertical: 14, horizontal: 18),
+                    margin: EdgeInsets.symmetric(horizontal: 6),
                     decoration: BoxDecoration(
                       color: selectedCategories.value == VarConst.categories[index] ? ColorConst.primaryColor : ColorConst.cardBgColor,
                       borderRadius: BorderRadius.circular(16),
@@ -181,11 +181,11 @@ class _UserHomeState extends State<UserHome> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomSize(
+          CustomSize(
             height: 20,
           ),
           buildSearchEngine(),
-          const CustomSize(
+          CustomSize(
             height: 20,
           ),
           categoriesView(),
@@ -195,10 +195,10 @@ class _UserHomeState extends State<UserHome> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // buildSearchedShoes(),
-                      const CustomSize(),
+                      CustomSize(),
                       buildUpperScroller(),
-                      const CustomSize(),
-                      const Padding(
+                      CustomSize(),
+                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: VarConst.padding),
                         child: CustomText(
                           text: "Best Seller :",
@@ -206,133 +206,136 @@ class _UserHomeState extends State<UserHome> {
                           size: 18,
                         ),
                       ),
-                      const CustomSize(),
+                      CustomSize(),
                       // buildBestSellerShoes(),
                       StreamBuilder(
-                        stream:FirebaseFirestore.instance.collection('products').where("category", isEqualTo: 'BestSeller').snapshots(),
+                        stream: FirebaseFirestore.instance.collection('products').where("category", isEqualTo: 'BestSeller').snapshots(),
                         builder: (context, snapshot) {
-
                           if (snapshot.hasError) {
                             return Center(child: Text('Error: ${snapshot.error}'));
                           }
                           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                            return const Center(
+                            return Center(
                                 child: Text(
-                                  'No Products available',
-                                  style: TextStyle(color: ColorConst.textPrimaryColor),
-                                ));
+                              'No Products available',
+                              style: TextStyle(color: ColorConst.textPrimaryColor),
+                            ));
                           }
 
-                        return CarouselSlider(
-                          options: CarouselOptions(autoPlay: false, enlargeCenterPage: true, height: Get.height * 0.25),
-                          items: snapshot.data!.docs.map((DocumentSnapshot document) {
-                            ShoeData i = shoeDataFromJson(jsonEncode(document.data()));
-                            return GestureDetector(
-                              onTap: () {
-                                show(Routes.shoeInfoScreen, argument: i);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), color: ColorConst.cardBgColor),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CachedNetworkImage(
-                                          imageUrl: i.imgUrl!,
-                                          fit: BoxFit.cover,
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(12),
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
+                          return CarouselSlider(
+                              options: CarouselOptions(autoPlay: false, enlargeCenterPage: true, height: Get.height * 0.25),
+                              items: snapshot.data!.docs.map((DocumentSnapshot document) {
+                                ShoeData i = shoeDataFromJson(jsonEncode(document.data()));
+                                return GestureDetector(
+                                  onTap: () {
+                                    show(Routes.shoeInfoScreen, argument: i);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), color: ColorConst.cardBgColor),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: CachedNetworkImage(
+                                              imageUrl: i.imgUrl!,
+                                              fit: BoxFit.cover,
+                                              imageBuilder: (context, imageProvider) => Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(12),
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
                                               ),
+                                              placeholder: (context, url) => Center(
+                                                child: CircularProgressIndicator(),
+                                              ),
+                                              errorWidget: (context, url, error) => Icon(Icons.error),
                                             ),
                                           ),
-                                          placeholder: (context, url) => const Center(
-                                            child: CircularProgressIndicator(),
-                                          ),
-                                          errorWidget: (context, url, error) => const Icon(Icons.error),
                                         ),
-                                      ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                CustomText(
+                                                  text: "${i.name}",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  color: ColorConst.textPrimaryColor,
+                                                  size: 20,
+                                                ),
+                                                CustomText(
+                                                  text: i.category.toString(),
+                                                  size: 14,
+                                                  color: ColorConst.textSecondaryColor,
+                                                ),
+                                                CustomSize(
+                                                  height: 5,
+                                                ),
+                                                CustomText(
+                                                  text: "$rupeesIcon ${i.price}",
+                                                  size: 20,
+                                                  color: ColorConst.primaryColor,
+                                                ),
+                                                CustomSize(),
+                                                SingleChildScrollView(
+                                                  scrollDirection: Axis.horizontal,
+                                                  child: Row(
+                                                    children: List.generate(i.shoesSize!.length, (index) {
+                                                      return Container(
+                                                        margin: EdgeInsets.symmetric(horizontal: 2),
+                                                        height: 25,
+                                                        width: 25,
+                                                        alignment: Alignment.center,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(6),
+                                                            border: Border.all(color: ColorConst.primaryColor)),
+                                                        child: CustomText(
+                                                          text: i.shoesSize![index],
+                                                          weight: true,
+                                                          size: 10,
+                                                          color: ColorConst.primaryColor,
+                                                          fontFamily: ForFontFamily.rale,
+                                                        ),
+                                                      );
+                                                    }),
+                                                  ),
+                                                ),
+                                                CustomSize(),
+                                                Text(
+                                                  i.des.toString(),
+                                                  textAlign: TextAlign.start,
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: ColorConst.textSecondaryColor,
+                                                      overflow: TextOverflow.fade,
+                                                      fontFamily: "pop"),
+                                                  maxLines: 4,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            CustomText(
-                                              text: "${i.name}",
-                                              overflow: TextOverflow.ellipsis,
-                                              color: ColorConst.textPrimaryColor,
-                                              size: 20,
-                                            ),
-                                            CustomText(
-                                              text: i.category.toString(),
-                                              size: 14,
-                                              color: ColorConst.textSecondaryColor,
-                                            ),
-                                            const CustomSize(
-                                              height: 5,
-                                            ),
-                                            CustomText(
-                                              text: "$rupeesIcon ${i.price}",
-                                              size: 20,
-                                              color: ColorConst.primaryColor,
-                                            ),
-                                            const CustomSize(),
-                                            SingleChildScrollView(
-                                              scrollDirection: Axis.horizontal,
-                                              child: Row(
-                                                children: List.generate(i.shoesSize!.length, (index) {
-                                                  return Container(
-                                                    margin: const EdgeInsets.symmetric(horizontal: 2),
-                                                    height: 25,
-                                                    width: 25,
-                                                    alignment: Alignment.center,
-                                                    decoration:
-                                                    BoxDecoration(borderRadius: BorderRadius.circular(6), border: Border.all(color: ColorConst.primaryColor)),
-                                                    child: CustomText(
-                                                      text: i.shoesSize![index],
-                                                      weight: true,
-                                                      size: 10,
-                                                      color: ColorConst.primaryColor,
-                                                      fontFamily: ForFontFamily.rale,
-                                                    ),
-                                                  );
-                                                }),
-                                              ),
-                                            ),
-                                            const CustomSize(),
-                                            Text(
-                                              i.des.toString(),
-                                              textAlign: TextAlign.start,
-                                              style:
-                                              const TextStyle(fontSize: 14, color: ColorConst.textSecondaryColor, overflow: TextOverflow.fade, fontFamily: "pop"),
-                                              maxLines: 4,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          }).toList()
-                        );
-                      },)
+                                  ),
+                                );
+                              }).toList());
+                        },
+                      )
                     ],
                   )
-                : const SizedBox.shrink(),
+                : SizedBox.shrink(),
           ),
-          const CustomSize(
+          CustomSize(
             height: 20,
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: VarConst.padding),
             child: CustomText(
               text: "All Shoes :",
@@ -341,7 +344,7 @@ class _UserHomeState extends State<UserHome> {
             ),
           ),
           buildAllShoes(),
-          const CustomSize(
+          CustomSize(
             height: 20,
           ),
         ],
@@ -351,7 +354,7 @@ class _UserHomeState extends State<UserHome> {
 
   Widget buildAppbar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: VarConst.padding),
+      padding: EdgeInsets.symmetric(horizontal: VarConst.padding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -371,13 +374,13 @@ class _UserHomeState extends State<UserHome> {
                     color: ColorConst.textPrimaryColor,
                     fit: BoxFit.fill,
                   ))),
-          const CustomText(
+          CustomText(
             text: "Explore",
             size: 28,
             color: ColorConst.textPrimaryColor,
             weight: true,
           ),
-          const CustomBagButton()
+          themeSwitch(),
         ],
       ),
     );
@@ -385,11 +388,11 @@ class _UserHomeState extends State<UserHome> {
 
   Widget buildSearchEngine() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: VarConst.padding),
+      padding: EdgeInsets.symmetric(horizontal: VarConst.padding),
       child: TextField(
         controller: searchController,
         style: TextStyle(color: ColorConst.textPrimaryColor),
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           hintText: "Looking For Shoes",
           hintStyle: TextStyle(color: ColorConst.textSecondaryColor),
           border: OutlineInputBorder(
@@ -445,7 +448,7 @@ class _UserHomeState extends State<UserHome> {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: CachedNetworkImage(
                           imageUrl: i.imgUrl!,
                           fit: BoxFit.cover,
@@ -458,16 +461,16 @@ class _UserHomeState extends State<UserHome> {
                               ),
                             ),
                           ),
-                          placeholder: (context, url) => const Center(
+                          placeholder: (context, url) => Center(
                             child: CircularProgressIndicator(),
                           ),
-                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
                         ),
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -482,7 +485,7 @@ class _UserHomeState extends State<UserHome> {
                               size: 14,
                               color: ColorConst.textSecondaryColor,
                             ),
-                            const CustomSize(
+                            CustomSize(
                               height: 5,
                             ),
                             CustomText(
@@ -490,13 +493,13 @@ class _UserHomeState extends State<UserHome> {
                               size: 20,
                               color: ColorConst.primaryColor,
                             ),
-                            const CustomSize(),
+                            CustomSize(),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 children: List.generate(i.shoesSize!.length, (index) {
                                   return Container(
-                                    margin: const EdgeInsets.symmetric(horizontal: 2),
+                                    margin: EdgeInsets.symmetric(horizontal: 2),
                                     height: 25,
                                     width: 25,
                                     alignment: Alignment.center,
@@ -513,12 +516,11 @@ class _UserHomeState extends State<UserHome> {
                                 }),
                               ),
                             ),
-                            const CustomSize(),
+                            CustomSize(),
                             Text(
                               i.des.toString(),
                               textAlign: TextAlign.start,
-                              style:
-                                  const TextStyle(fontSize: 14, color: ColorConst.textSecondaryColor, overflow: TextOverflow.fade, fontFamily: "pop"),
+                              style: TextStyle(fontSize: 14, color: ColorConst.textSecondaryColor, overflow: TextOverflow.fade, fontFamily: "pop"),
                               maxLines: 4,
                             ),
                           ],
@@ -539,11 +541,10 @@ class _UserHomeState extends State<UserHome> {
     return ListTileTheme(
       textColor: ColorConst.textPrimaryColor,
       iconColor: ColorConst.textPrimaryColor,
-
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          const CustomText(
+          CustomText(
             text: "Foot Fiesta",
             size: 32,
             overflow: TextOverflow.fade,
@@ -555,24 +556,33 @@ class _UserHomeState extends State<UserHome> {
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
             },
-            leading: const Icon(Icons.home, color: ColorConst.white),
-            title: const Text('Home', style: TextStyle(color: ColorConst.white)),
+            leading: Icon(Icons.home, color: ColorConst.white),
+            title: Text('Home', style: TextStyle(color: ColorConst.white)),
           ),
           ListTile(
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
               show(Routes.profileUser);
             },
-            leading: const Icon(Icons.card_travel, color: ColorConst.white),
-            title: const Text('Profile', style: TextStyle(color: ColorConst.white)),
+            leading: Icon(Icons.card_travel, color: ColorConst.white),
+            title: Text('Profile', style: TextStyle(color: ColorConst.white)),
           ),
           ListTile(
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
               show(Routes.orderUser);
             },
-            leading: const Icon(Icons.account_circle_rounded, color: ColorConst.white),
-            title: const Text("Orders", style: TextStyle(color: ColorConst.white)),
+            leading: Icon(Icons.account_circle_rounded, color: ColorConst.white),
+            title: Text("Orders", style: TextStyle(color: ColorConst.white)),
+          ),
+          ListTile(
+            onTap: () {
+              sideMenuKey.currentState!.closeSideMenu();
+
+              show(Routes.cartScreenUser);
+            },
+            leading: Icon(Icons.account_circle_rounded, color: ColorConst.white),
+            title: Text("My Cart", style: TextStyle(color: ColorConst.white)),
           ),
           ListTile(
             onTap: () async {
@@ -582,17 +592,17 @@ class _UserHomeState extends State<UserHome> {
               ListConst.currentUser = UserData(orderList: [], email: "Unknown", cart: [], address: "Unknown", name: "Unknown", uId: "Unknown");
               showOffAll(Routes.signIn);
             },
-            leading: const Icon(Icons.logout, color: ColorConst.white),
-            title: const Text('Sign Out', style: TextStyle(color: ColorConst.white)),
+            leading: Icon(Icons.logout, color: ColorConst.white),
+            title: Text('Sign Out', style: TextStyle(color: ColorConst.white)),
           ),
-          const Spacer(),
+          Spacer(),
           DefaultTextStyle(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
               color: Colors.white54,
             ),
             child: Container(
-              margin: const EdgeInsets.symmetric(
+              margin: EdgeInsets.symmetric(
                 vertical: 16.0,
               ),
               child: GestureDetector(
@@ -600,7 +610,7 @@ class _UserHomeState extends State<UserHome> {
                     sideMenuKey.currentState!.closeSideMenu();
                     show(Routes.termsScreen);
                   },
-                  child: const Text('Terms of Service | Privacy Policy', style: TextStyle(color: ColorConst.white))),
+                  child: Text('Terms of Service | Privacy Policy', style: TextStyle(color: ColorConst.white))),
             ),
           ),
         ],
@@ -616,25 +626,25 @@ class _UserHomeState extends State<UserHome> {
               : searchShoesQuery(selectedCategory: selectedCategories.value, searchData: searchTxt.value),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             // if (snapshot.connectionState == ConnectionState.waiting) {
-            //   return const Center(child: CircularProgressIndicator());
+            //   return  Center(child: CircularProgressIndicator());
             // }
             if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             }
             if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-              return const Center(
+              return Center(
                   child: Text(
                 'No Products available',
                 style: TextStyle(color: ColorConst.textPrimaryColor),
               ));
             }
             return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: VarConst.padding),
+                padding: EdgeInsets.symmetric(horizontal: VarConst.padding),
                 child: GridView(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisExtent: 250, crossAxisCount: 2, crossAxisSpacing: 20, mainAxisSpacing: 20),
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate:
+                      SliverGridDelegateWithFixedCrossAxisCount(mainAxisExtent: 250, crossAxisCount: 2, crossAxisSpacing: 20, mainAxisSpacing: 20),
                   children: snapshot.data!.docs.map((DocumentSnapshot document) {
                     ShoeData shoe = shoeDataFromJson(jsonEncode(document.data()));
                     return buildShoeContainer(shoe: shoe);
@@ -652,7 +662,7 @@ class _UserHomeState extends State<UserHome> {
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), color: ColorConst.cardBgColor),
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -669,20 +679,20 @@ class _UserHomeState extends State<UserHome> {
                       ),
                     ),
                   ),
-                  placeholder: (context, url) => const Center(
+                  placeholder: (context, url) => Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               CustomText(
                 text: "${shoe.category}",
                 color: ColorConst.primaryColor,
                 weight: true,
                 size: 16,
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: 5),
               CustomText(
                 text: "${shoe.name}",
                 size: 18,
@@ -691,13 +701,13 @@ class _UserHomeState extends State<UserHome> {
                 color: ColorConst.textPrimaryColor,
                 weight: true,
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: 5),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: List.generate(shoe.shoesSize!.length, (index) {
                     return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
+                      margin: EdgeInsets.symmetric(horizontal: 2),
                       height: 25,
                       width: 25,
                       alignment: Alignment.center,
@@ -713,7 +723,7 @@ class _UserHomeState extends State<UserHome> {
                   }),
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               Row(
                 children: [
                   CustomText(
@@ -722,12 +732,12 @@ class _UserHomeState extends State<UserHome> {
                     color: ColorConst.textPrimaryColor,
                     weight: true,
                   ),
-                  const Spacer(),
+                  Spacer(),
                   Container(
                     height: 30,
                     width: 30,
                     decoration: BoxDecoration(color: ColorConst.primaryColor, borderRadius: BorderRadius.circular(6)),
-                    child: const Icon(
+                    child: Icon(
                       Icons.add_circle_outline,
                       color: Colors.white,
                       size: 18,

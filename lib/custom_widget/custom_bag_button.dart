@@ -5,7 +5,7 @@ import '../constant/color_const.dart';
 import '../routing/routes.dart';
 
 class CustomBagButton extends StatelessWidget {
-  const CustomBagButton({super.key,this.isWhite = true});
+   CustomBagButton({super.key,this.isWhite = true});
   final bool isWhite;
 
   @override
@@ -19,7 +19,7 @@ class CustomBagButton extends StatelessWidget {
               shape: BoxShape.circle,
               color: ColorConst.cardBgColor
           ),
-          child: const Center(child: Icon(CupertinoIcons.bag,color: ColorConst.textPrimaryColor,))),
+          child:  Center(child: Icon(CupertinoIcons.bag,color: ColorConst.textPrimaryColor,))),
     );
   }
 }

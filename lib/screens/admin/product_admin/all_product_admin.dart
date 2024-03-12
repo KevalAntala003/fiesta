@@ -16,7 +16,7 @@ import '../../../custom_widget/custom_text.dart';
 import '../../../routing/routes.dart';
 
 class AllProductAdmin extends StatefulWidget {
-  const AllProductAdmin({super.key});
+   AllProductAdmin({super.key});
 
   @override
   State<AllProductAdmin> createState() => _AllProductAdminState();
@@ -33,11 +33,11 @@ class _AllProductAdminState extends State<AllProductAdmin> {
 
   Widget buildBody() {
     return Padding(
-      padding: const EdgeInsets.all(VarConst.padding),
+      padding:  EdgeInsets.all(VarConst.padding),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const CustomSize(
+             CustomSize(
               height: VarConst.sizeOnAppBar,
             ),
             buildAppbar(),
@@ -50,7 +50,7 @@ class _AllProductAdminState extends State<AllProductAdmin> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -74,40 +74,40 @@ class _AllProductAdminState extends State<AllProductAdmin> {
           .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return  Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(child: Padding(
+          return  Center(child: Padding(
             padding: EdgeInsets.only(top: 50.0),
             child: Text('No Products available!',style: TextStyle(fontSize: 20),),
           ));
         }
         return ListView(
-          physics: const NeverScrollableScrollPhysics(),
+          physics:  NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             ShoeData shoe = shoeDataFromJson(jsonEncode(document.data()));
             log("test the log --->${shoe.imgUrl}");
             if(shoe.isLive!){
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                padding:  EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 child: ListTile(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
-                      side: const BorderSide(
+                      side:  BorderSide(
                           color: ColorConst.textSecondaryColor, width: 0.2)),
                   tileColor: ColorConst.cardBgColor,
                   onTap: () => show(Routes.shoeInfoScreenAdmin, argument: shoe),
                   leading: CachedNetworkImage(
                     imageUrl: shoe.imgUrl!,
-                    placeholder: (context, url) => const Padding(
+                    placeholder: (context, url) =>  Padding(
                       padding: EdgeInsets.all(8.0),
                       child: CircularProgressIndicator(),
                     ),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    errorWidget: (context, url, error) =>  Icon(Icons.error),
                   ),
                   trailing: PopupMenuButton(
                     color: ColorConst.cardBgColor,
@@ -117,7 +117,7 @@ class _AllProductAdminState extends State<AllProductAdmin> {
                         onTap: () {
                           show(Routes.editProductAdmin, argument: shoe);
                         },
-                        child: const CustomText(
+                        child:  CustomText(
                           text: "Edit",
                           size: 16,
                         ),
@@ -129,7 +129,7 @@ class _AllProductAdminState extends State<AllProductAdmin> {
                               .onDeleteProduct(shoe.id.toString());
                           log("deleting product ${shoe.id}");
                         },
-                        child: const CustomText(
+                        child:  CustomText(
                           text: "Delete",
                           size: 16,
                         ),
@@ -147,7 +147,7 @@ class _AllProductAdminState extends State<AllProductAdmin> {
                 ),
               );
             }else{
-              return const SizedBox();
+              return  SizedBox();
             }
           }).toList(),
         );
@@ -158,7 +158,7 @@ class _AllProductAdminState extends State<AllProductAdmin> {
   Widget buildFloatingButton() {
     return FloatingActionButton(
         backgroundColor: ColorConst.primaryColor,
-        child: const Icon(
+        child:  Icon(
           CupertinoIcons.add,
           color: ColorConst.cardBgColor,
         ),

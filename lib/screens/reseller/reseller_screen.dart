@@ -22,7 +22,7 @@ import '../../routing/routes.dart';
 import '../../utils/show.dart';
 
 class ResellerScreen extends StatefulWidget {
-  const ResellerScreen({super.key});
+  ResellerScreen({super.key});
 
   @override
   State<ResellerScreen> createState() => _ResellerScreenState();
@@ -51,18 +51,18 @@ class _ResellerScreenState extends State<ResellerScreen> {
           } else {
             log("Exit with back");
             Get.dialog(AlertDialog(
-              title: const Text('Confirm Exit'),
-              content: const Text('Are you sure you want to exit?'),
+              title: Text('Confirm Exit'),
+              content: Text('Are you sure you want to exit?'),
               actions: <Widget>[
                 TextButton(
-                  child: const Text('Cancel'),
+                  child: Text('Cancel'),
                   onPressed: () {
                     // User tapped the cancel button, pop the dialog and return false
                     Navigator.of(context).pop(false);
                   },
                 ),
                 TextButton(
-                  child: const Text('Exit'),
+                  child: Text('Exit'),
                   onPressed: () {
                     // User tapped the exit button, pop the dialog and return true
                     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
@@ -75,10 +75,10 @@ class _ResellerScreenState extends State<ResellerScreen> {
         child: Scaffold(
           floatingActionButton: buildFloatingButton(),
           body: Padding(
-            padding: const EdgeInsets.all(VarConst.padding),
+            padding: EdgeInsets.all(VarConst.padding),
             child: Column(
               children: [
-                const CustomSize(
+                CustomSize(
                   height: VarConst.sizeOnAppBar,
                 ),
                 buildAppbar(),
@@ -112,14 +112,12 @@ class _ResellerScreenState extends State<ResellerScreen> {
                   fit: BoxFit.fill,
                   color: ColorConst.textSecondaryColor,
                 ))),
-        const CustomText(
+        CustomText(
           text: "ReSeller",
           size: 28,
           weight: true,
         ),
-        const CustomSize(
-          width: 20,
-        )
+        themeSwitch(),
       ],
     );
   }
@@ -131,7 +129,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          const CustomText(
+          CustomText(
             text: "Seller",
             size: 32,
             weight: true,
@@ -143,11 +141,11 @@ class _ResellerScreenState extends State<ResellerScreen> {
               sideMenuKey.currentState!.closeSideMenu();
               setState(() {});
             },
-            leading: const Icon(
+            leading: Icon(
               Icons.home,
               color: ColorConst.white,
             ),
-            title: const Text(
+            title: Text(
               'Home',
               style: TextStyle(
                 color: ColorConst.white,
@@ -159,11 +157,11 @@ class _ResellerScreenState extends State<ResellerScreen> {
               sideMenuKey.currentState!.closeSideMenu();
               show(Routes.allProductAdmin);
             },
-            leading: const Icon(
+            leading: Icon(
               Icons.card_travel,
               color: ColorConst.white,
             ),
-            title: const Text(
+            title: Text(
               'Products',
               style: TextStyle(
                 color: ColorConst.white,
@@ -175,8 +173,8 @@ class _ResellerScreenState extends State<ResellerScreen> {
           //     sideMenuKey.currentState!.closeSideMenu();
           //     show(Routes.allUserAdmin);
           //   },
-          //   leading: const Icon(Icons.account_circle_rounded),
-          //   title: const Text("Users"),
+          //   leading:  Icon(Icons.account_circle_rounded),
+          //   title:  Text("Users"),
           // ),
           ListTile(
             onTap: () async {
@@ -185,25 +183,25 @@ class _ResellerScreenState extends State<ResellerScreen> {
               await prefs.clear();
               showOffAll(Routes.signIn);
             },
-            leading: const Icon(
+            leading: Icon(
               Icons.logout,
               color: ColorConst.white,
             ),
-            title: const Text(
+            title: Text(
               'Sign Out',
               style: TextStyle(
                 color: ColorConst.white,
               ),
             ),
           ),
-          const Spacer(),
+          Spacer(),
           DefaultTextStyle(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
               color: Colors.white54,
             ),
             child: Container(
-              margin: const EdgeInsets.symmetric(
+              margin: EdgeInsets.symmetric(
                 vertical: 16.0,
               ),
               child: GestureDetector(
@@ -211,7 +209,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
                     sideMenuKey.currentState!.closeSideMenu();
                     show(Routes.termsScreen);
                   },
-                  child: const Text(
+                  child: Text(
                     'Terms of Service | Privacy Policy',
                     style: TextStyle(
                       color: ColorConst.textSecondaryColor,
@@ -227,19 +225,16 @@ class _ResellerScreenState extends State<ResellerScreen> {
   Widget buildListView() {
     log('VarConst.currentUser!==>${VarConst.currentUser!}');
     return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection('products')
-          .where("seller", isEqualTo: VarConst.currentUser!)
-          .snapshots(),
+      stream: FirebaseFirestore.instance.collection('products').where("seller", isEqualTo: VarConst.currentUser!).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(
+          return Center(
               child: Padding(
             padding: EdgeInsets.only(top: 50.0),
             child: Text(
@@ -249,26 +244,26 @@ class _ResellerScreenState extends State<ResellerScreen> {
           ));
         }
         return ListView(
-          // physics: const NeverScrollableScrollPhysics(),
+          // physics:  NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             ShoeData shoe = shoeDataFromJson(jsonEncode(document.data()));
             log("test the log --->${shoe.imgUrl}");
             if (shoe.isLive!) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                 child: ListTile(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14), side: const BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
+                      borderRadius: BorderRadius.circular(14), side: BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
                   tileColor: ColorConst.cardBgColor,
                   onTap: () => show(Routes.shoeInfoScreenAdmin, argument: shoe),
                   leading: CachedNetworkImage(
                     imageUrl: shoe.imgUrl!,
-                    placeholder: (context, url) => const Padding(
+                    placeholder: (context, url) => Padding(
                       padding: EdgeInsets.all(8.0),
                       child: CircularProgressIndicator(),
                     ),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                   trailing: PopupMenuButton(
                     color: ColorConst.cardBgColor,
@@ -278,7 +273,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
                         onTap: () {
                           show(Routes.editProductAdmin, argument: shoe);
                         },
-                        child: const CustomText(
+                        child: CustomText(
                           text: "Edit",
                           size: 16,
                         ),
@@ -289,7 +284,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
                           await GetDataRepository().onDeleteProduct(shoe.id.toString());
                           log("deleting product ${shoe.id}");
                         },
-                        child: const CustomText(
+                        child: CustomText(
                           text: "Delete",
                           size: 16,
                         ),
@@ -310,7 +305,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
                 ),
               );
             } else {
-              return const SizedBox();
+              return SizedBox();
             }
           }).toList(),
         );
@@ -339,7 +334,7 @@ class _ResellerScreenState extends State<ResellerScreen> {
             SizedBox(
               width: 5,
             ),
-            const CustomText(
+            CustomText(
               text: 'Add Product',
               size: 18,
               align: TextAlign.start,

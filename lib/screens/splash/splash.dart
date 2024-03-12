@@ -15,7 +15,7 @@ import '../../routing/routes.dart';
 import '../../utils/show.dart';
 
 class Splash extends StatefulWidget {
-  const Splash({super.key});
+   Splash({super.key});
 
   @override
   State<Splash> createState() => _SplashState();
@@ -39,7 +39,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     initNotification();
-    Future.delayed(const Duration(seconds: 2), () async {
+    Future.delayed( Duration(seconds: 2), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.getString("userId") != null) {
         VarConst.currentUser = prefs.getString("userId");

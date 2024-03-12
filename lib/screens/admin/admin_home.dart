@@ -20,7 +20,7 @@ import '../../custom_widget/custom_text.dart';
 import '../../models/order_data.dart';
 
 class AdminHome extends StatefulWidget {
-  const AdminHome({super.key});
+  AdminHome({super.key});
 
   @override
   State<AdminHome> createState() => _AdminHomeState();
@@ -49,18 +49,18 @@ class _AdminHomeState extends State<AdminHome> {
           } else {
             log("Exit with back");
             Get.dialog(AlertDialog(
-              title: const Text('Confirm Exit'),
-              content: const Text('Are you sure you want to exit?'),
+              title: Text('Confirm Exit'),
+              content: Text('Are you sure you want to exit?'),
               actions: <Widget>[
                 TextButton(
-                  child: const Text('Cancel'),
+                  child: Text('Cancel'),
                   onPressed: () {
                     // User tapped the cancel button, pop the dialog and return false
                     Navigator.of(context).pop(false);
                   },
                 ),
                 TextButton(
-                  child: const Text('Exit'),
+                  child: Text('Exit'),
                   onPressed: () {
                     // User tapped the exit button, pop the dialog and return true
                     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
@@ -72,10 +72,10 @@ class _AdminHomeState extends State<AdminHome> {
         },
         child: Scaffold(
           body: Padding(
-            padding: const EdgeInsets.all(VarConst.padding),
+            padding: EdgeInsets.all(VarConst.padding),
             child: Column(
               children: [
-                const CustomSize(
+                CustomSize(
                   height: VarConst.sizeOnAppBar,
                 ),
                 buildAppbar(),
@@ -108,14 +108,12 @@ class _AdminHomeState extends State<AdminHome> {
                   ImgConst.menu,
                   fit: BoxFit.fill,
                 ))),
-        const CustomText(
+        CustomText(
           text: "Orders",
           size: 28,
           weight: true,
         ),
-        const CustomSize(
-          width: 20,
-        )
+        themeSwitch(),
       ],
     );
   }
@@ -125,24 +123,24 @@ class _AdminHomeState extends State<AdminHome> {
       stream: FirebaseFirestore.instance.collection('orders').snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(child: Text('No Orders available'));
+          return Center(child: Text('No Orders available',style: TextStyle(color: ColorConst.textPrimaryColor),));
         }
         return ListView(
-          // physics: const NeverScrollableScrollPhysics(),
+          // physics:  NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             OrderData orderData = orderDataFromJson(jsonEncode(document.data()));
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: ListTile(
-                shape:
-                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(14), side: const BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14), side: BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
                 tileColor: ColorConst.cardBgColor,
                 onTap: () {
                   show(Routes.showOrderInfoAdmin, argument: [orderData, document.id]);
@@ -153,8 +151,9 @@ class _AdminHomeState extends State<AdminHome> {
                   align: TextAlign.start,
                   ls: 0.5,
                 ),
-                subtitle: Text('Amount: $rupeesIcon${orderData.totalAmount}',
-                style: const TextStyle(color: ColorConst.textSecondaryColor),
+                subtitle: Text(
+                  'Amount: $rupeesIcon${orderData.totalAmount}',
+                  style: TextStyle(color: ColorConst.textSecondaryColor),
                 ),
               ),
             );
@@ -171,7 +170,7 @@ class _AdminHomeState extends State<AdminHome> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          const CustomText(
+          CustomText(
             text: "Admin",
             size: 32,
             weight: true,
@@ -183,24 +182,24 @@ class _AdminHomeState extends State<AdminHome> {
               sideMenuKey.currentState!.closeSideMenu();
               setState(() {});
             },
-            leading: const Icon(Icons.home),
-            title: const Text('Home'),
+            leading: Icon(Icons.home),
+            title: Text('Home'),
           ),
           ListTile(
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
               show(Routes.allProductAdmin);
             },
-            leading: const Icon(Icons.card_travel),
-            title: const Text('Products'),
+            leading: Icon(Icons.card_travel),
+            title: Text('Products'),
           ),
           ListTile(
             onTap: () {
               sideMenuKey.currentState!.closeSideMenu();
               show(Routes.allUserAdmin);
             },
-            leading: const Icon(Icons.account_circle_rounded),
-            title: const Text("Users"),
+            leading: Icon(Icons.account_circle_rounded),
+            title: Text("Users"),
           ),
           ListTile(
             onTap: () async {
@@ -210,17 +209,17 @@ class _AdminHomeState extends State<AdminHome> {
               await prefs.clear();
               showOffAll(Routes.signIn);
             },
-            leading: const Icon(Icons.logout),
-            title: const Text('Sign Out'),
+            leading: Icon(Icons.logout),
+            title: Text('Sign Out'),
           ),
-          const Spacer(),
+          Spacer(),
           DefaultTextStyle(
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
               color: Colors.white54,
             ),
             child: Container(
-              margin: const EdgeInsets.symmetric(
+              margin: EdgeInsets.symmetric(
                 vertical: 16.0,
               ),
               child: GestureDetector(
@@ -228,7 +227,7 @@ class _AdminHomeState extends State<AdminHome> {
                     sideMenuKey.currentState!.closeSideMenu();
                     show(Routes.termsScreen);
                   },
-                  child: const Text('Terms of Service | Privacy Policy')),
+                  child: Text('Terms of Service | Privacy Policy')),
             ),
           ),
         ],

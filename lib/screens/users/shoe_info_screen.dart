@@ -18,7 +18,7 @@ import '../../constant/var_const.dart';
 import '../../utils/show.dart';
 
 class ShoeInfoScreen extends StatefulWidget {
-  const ShoeInfoScreen({super.key});
+   ShoeInfoScreen({super.key});
 
   @override
   State<ShoeInfoScreen> createState() => _ShoeInfoScreenState();
@@ -39,7 +39,7 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -51,16 +51,16 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
 
   Widget buildBody() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: VarConst.padding),
+      padding:  EdgeInsets.symmetric(horizontal: VarConst.padding),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CustomSize(
+             CustomSize(
               height: VarConst.sizeOnAppBar,
             ),
             buildAppbar(),
-            const CustomSize(
+             CustomSize(
               height: 20,
             ),
             CustomText(
@@ -77,25 +77,25 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
               color: ColorConst.textSecondaryColor,
               fontFamily: ForFontFamily.rale,
             ),
-            const CustomSize(),
+             CustomSize(),
             CustomText(text: "$rupeesIcon${shoeData.price}",color: ColorConst.primaryColor, size: 24),
             SizedBox(
                 width: double.infinity,
                 child: CachedNetworkImage(
                   imageUrl: shoeData.imgUrl!,
-                  placeholder: (context, url) => const Center(
+                  placeholder: (context, url) =>  Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) =>  Icon(Icons.error),
                 )),
-            const CustomSize(),
-            const CustomText(
+             CustomSize(),
+             CustomText(
               text: "Shoes Size :",
               size: 16,
               color: ColorConst.textSecondaryColor,
               ls: 0.5,
             ),
-            const CustomSize(),
+             CustomSize(),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(children: List.generate(shoeData.shoesSize!.length, (index) {
@@ -105,7 +105,7 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
                   setState(() {});
                 },
                   child: Container(
-                    margin:  const EdgeInsets.symmetric(horizontal:3),
+                    margin:   EdgeInsets.symmetric(horizontal:3),
                     height: 33,
                     width: 33,
                     alignment: Alignment.center,
@@ -125,20 +125,20 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
                 );
               }),),
             ),
-            const CustomSize(),
-            const CustomText(
+             CustomSize(),
+             CustomText(
               text: "Description :",
               size: 16,
               color: ColorConst.textSecondaryColor,
               ls: 0.5,
             ),
-            const CustomSize(),
+             CustomSize(),
             Card(
               elevation: 5,
               color: ColorConst.cardBgColor,
               shadowColor: ColorConst.textSecondaryColor,
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding:  EdgeInsets.all(12.0),
                 child: CustomText(
                   text: "${shoeData.des}",
                   size: 14,
@@ -148,7 +148,7 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
                 ),
               ),
             ),
-            const CustomSize(
+             CustomSize(
               height: 100,
             )
           ],
@@ -159,24 +159,24 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
 
   Widget buildFloatingButton() {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding:  EdgeInsets.all(12.0),
       child: Obx(
         () => VarConst.isLoading.value
             ? ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
+                    minimumSize:  Size.fromHeight(50),
                     backgroundColor: ColorConst.primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14))),
                 onPressed: () {
                   Get.snackbar("Processing", "Wait until process complete.");
                 },
-                child: const CircularProgressIndicator(
+                child:  CircularProgressIndicator(
                   color: Colors.white,
                 ))
             : ElevatedButton(
             style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
+                minimumSize:  Size.fromHeight(50),
                 backgroundColor: ColorConst.primaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14))),
@@ -184,15 +184,15 @@ class _ShoeInfoScreenState extends State<ShoeInfoScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(CupertinoIcons.bag,color: ColorConst.textPrimaryColor,),
-                const CustomSize(),
+                 Icon(CupertinoIcons.bag,color: ColorConst.textPrimaryColor,),
+                 CustomSize(),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: const CustomText(
+                  padding:  EdgeInsets.all(8.0),
+                  child:  CustomText(
                     size: 16,
                     text: "Add To Cart",
                     color: Colors.white,
-                  ).animate().fadeIn(duration: const Duration(milliseconds: 500)),
+                  ).animate().fadeIn(duration:  Duration(milliseconds: 500)),
                 ),
               ],
             )),

@@ -15,7 +15,7 @@ import '../../../models/order_data.dart';
 import '../../../routing/routes.dart';
 
 class ShowOrderInfoAdmin extends StatefulWidget {
-  const ShowOrderInfoAdmin({super.key});
+   ShowOrderInfoAdmin({super.key});
 
   @override
   State<ShowOrderInfoAdmin> createState() => _ShowOrderInfoAdminState();
@@ -43,15 +43,15 @@ class _ShowOrderInfoAdminState extends State<ShowOrderInfoAdmin> {
 
   Widget buildBody() {
     return Padding(
-      padding: const EdgeInsets.all(VarConst.padding),
+      padding:  EdgeInsets.all(VarConst.padding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomSize(
+           CustomSize(
             height: VarConst.sizeOnAppBar,
           ),
           buildAppbar(),
-          const CustomSize(),
+           CustomSize(),
           CustomText(
             text: "Total Amount : $rupeesIcon${orderData.totalAmount}",
             align: TextAlign.start,
@@ -64,7 +64,7 @@ class _ShowOrderInfoAdminState extends State<ShowOrderInfoAdmin> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -79,11 +79,11 @@ class _ShowOrderInfoAdminState extends State<ShowOrderInfoAdmin> {
   Widget buildOrderList() {
     return Obx(
       () => isLoadingOrders.value
-          ? const Center(child: CircularProgressIndicator())
+          ?  Center(child: CircularProgressIndicator())
           : GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+              physics:  NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
               itemCount: orderData.items!.length,
               itemBuilder: (BuildContext context, index) {
@@ -97,19 +97,19 @@ class _ShowOrderInfoAdminState extends State<ShowOrderInfoAdmin> {
                       color: ColorConst.cardBgColor,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding:  EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: CachedNetworkImage(
                               imageUrl: shoeImages[index].imgUrl!,
-                              placeholder: (context, url) => const Padding(
+                              placeholder: (context, url) =>  Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: CircularProgressIndicator(),
                               ),
                               errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
+                                   Icon(Icons.error),
                             ),
                           ),
                           CustomText(text: shoeImages[index].name!,align: TextAlign.start,size: 18,),

@@ -11,7 +11,7 @@ import '../../../custom_widget/custom_size.dart';
 import '../../../routing/routes.dart';
 
 class AllUsersAdmin extends StatefulWidget {
-  const AllUsersAdmin({super.key});
+   AllUsersAdmin({super.key});
 
   @override
   State<AllUsersAdmin> createState() => _AllUsersAdminState();
@@ -28,10 +28,10 @@ class _AllUsersAdminState extends State<AllUsersAdmin> {
   Widget buildBody(){
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(VarConst.padding),
+        padding:  EdgeInsets.all(VarConst.padding),
         child: Column(
           children: [
-            const CustomSize(
+             CustomSize(
               height: VarConst.sizeOnAppBar,
             ),
             buildAppbar(),
@@ -43,7 +43,7 @@ class _AllUsersAdminState extends State<AllUsersAdmin> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -62,32 +62,32 @@ class _AllUsersAdminState extends State<AllUsersAdmin> {
       stream: FirebaseFirestore.instance.collection('users').snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return  Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(child: Text('No Users available'));
+          return  Center(child: Text('No Users available'));
         }
         return ListView(
-          physics: const NeverScrollableScrollPhysics(),
+          physics:  NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             UserData user = userDataFromJson(jsonEncode(document.data()));
 
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 8),
+              padding:  EdgeInsets.symmetric(vertical: 4,horizontal: 8),
               child: ListTile(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
-                    side: const BorderSide(color: ColorConst.textSecondaryColor,width: 0.2)
+                    side:  BorderSide(color: ColorConst.textSecondaryColor,width: 0.2)
                 ),
                 onTap: (){
                   show(Routes.userDataScreenAdmin,argument: user);
                 },
                 tileColor: ColorConst.cardBgColor,
-                leading: const Icon(Icons.account_circle_rounded),
+                leading:  Icon(Icons.account_circle_rounded),
                 title: CustomText(text: user.name!,size: 18,align: TextAlign.start,ls: 0.5,),
                 subtitle: CustomText(text: 'Total Orders : ${user.orderList!.length}',overflow: TextOverflow.ellipsis,align: TextAlign.start,size: 16,color: ColorConst.textSecondaryColor,),
               ),

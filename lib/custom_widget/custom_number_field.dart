@@ -6,7 +6,7 @@ import '/custom_widget/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomNumberTextFormField extends StatelessWidget {
-  const CustomNumberTextFormField(
+   CustomNumberTextFormField(
       {super.key,
         required this.text,
         required this.controller,
@@ -32,10 +32,10 @@ class CustomNumberTextFormField extends StatelessWidget {
           color: ColorConst.textSecondaryColor,
           fontFamily: ForFontFamily.rale,
         ),
-        const CustomSize(),
+         CustomSize(),
         TextFormField(
           textInputAction: TextInputAction.next,
-          style: const TextStyle(fontWeight: FontWeight.bold,color: ColorConst.textPrimaryColor),
+          style:  TextStyle(fontWeight: FontWeight.bold,color: ColorConst.textPrimaryColor),
           controller: controller,
           maxLength: length,
           validator: (value) {
@@ -52,7 +52,7 @@ class CustomNumberTextFormField extends StatelessWidget {
             filled: true,
             fillColor: fieldColor ?? ColorConst.cardBgColor,
             hintText: hintText ?? "",
-            hintStyle: const TextStyle(
+            hintStyle:  TextStyle(
                 color: ColorConst.textSecondaryColor, fontWeight: FontWeight.bold),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),

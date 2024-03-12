@@ -6,7 +6,7 @@ import '../../routing/routes.dart';
 import '../../utils/show.dart';
 
 class Intro2 extends StatefulWidget {
-  const Intro2({super.key});
+   Intro2({super.key});
 
   @override
   State<Intro2> createState() => _Intro2State();
@@ -24,7 +24,7 @@ class _Intro2State extends State<Intro2> {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
           image: DecorationImage(
               image: AssetImage(ImgConst.intro2),
               fit: BoxFit.fill
@@ -35,7 +35,7 @@ class _Intro2State extends State<Intro2> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding:  EdgeInsets.all(16.0),
             child: CustomButton(
                 buttonColor: Colors.white,
                 textColor: Colors.black,

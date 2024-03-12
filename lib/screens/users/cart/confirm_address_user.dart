@@ -19,7 +19,7 @@ import '../../../repository/get_data_repository.dart';
 import '../../../routing/routes.dart';
 
 class ConfirmAddressUser extends StatefulWidget {
-  const ConfirmAddressUser({super.key});
+   ConfirmAddressUser({super.key});
 
   @override
   State<ConfirmAddressUser> createState() => _ConfirmAddressUserState();
@@ -44,15 +44,15 @@ class _ConfirmAddressUserState extends State<ConfirmAddressUser> {
   Widget buildBody() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(VarConst.padding),
+        padding:  EdgeInsets.all(VarConst.padding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const CustomSize(
+             CustomSize(
               height: VarConst.sizeOnAppBar,
             ),
             buildAppbar(),
-            const CustomSize(),
+             CustomSize(),
             buildAddressTile(),
             buildChangeAddressButton()
           ],
@@ -62,7 +62,7 @@ class _ConfirmAddressUserState extends State<ConfirmAddressUser> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -76,9 +76,9 @@ class _ConfirmAddressUserState extends State<ConfirmAddressUser> {
     return ListTile(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
-          side: const BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
+          side:  BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
       tileColor: ColorConst.cardBgColor,
-      title: const CustomText(
+      title:  CustomText(
         text: "Address",
         size: 18,
         align: TextAlign.start,
@@ -98,7 +98,7 @@ class _ConfirmAddressUserState extends State<ConfirmAddressUser> {
           Get.bottomSheet(
               backgroundColor: ColorConst.bottomSheetBgColor,
               Padding(
-                padding: const EdgeInsets.all(VarConst.padding),
+                padding:  EdgeInsets.all(VarConst.padding),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +107,7 @@ class _ConfirmAddressUserState extends State<ConfirmAddressUser> {
                         text: "New Address",
                         hintText: "25-B ,Avenue Colony",
                         controller: addressController),
-                    const CustomSize(),
+                     CustomSize(),
                     CustomButton(
                         onPressed: () async {
                           if(addressController.text != ""){
@@ -132,7 +132,7 @@ class _ConfirmAddressUserState extends State<ConfirmAddressUser> {
                 ),
               ));
         },
-        child: const CustomText(
+        child:  CustomText(
           text: "Change Address",
           size: 14,
           color: ColorConst.primaryColor,

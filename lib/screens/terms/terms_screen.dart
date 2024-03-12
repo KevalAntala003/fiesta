@@ -7,7 +7,7 @@ import '../../custom_widget/custom_size.dart';
 import '../../custom_widget/custom_text.dart';
 
 class TermsScreen extends StatefulWidget {
-  const TermsScreen({super.key});
+   TermsScreen({super.key});
 
   @override
   State<TermsScreen> createState() => _TermsScreenState();
@@ -39,10 +39,10 @@ class _TermsScreenState extends State<TermsScreen> {
   Widget buildBody() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(VarConst.padding),
+        padding:  EdgeInsets.all(VarConst.padding),
         child: Column(
           children: [
-            const CustomSize(
+             CustomSize(
               height: VarConst.sizeOnAppBar,
             ),
             buildAppbar(),
@@ -54,7 +54,7 @@ class _TermsScreenState extends State<TermsScreen> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -73,10 +73,10 @@ class _TermsScreenState extends State<TermsScreen> {
   Widget buildContent() {
     return ListView.separated(
       separatorBuilder: (BuildContext context,index){
-        return const CustomSize(height: 20,);
+        return  CustomSize(height: 20,);
       },
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        physics:  NeverScrollableScrollPhysics(),
         itemCount: titles.length,
         itemBuilder: (BuildContext context, index) {
           return Column(
@@ -87,14 +87,14 @@ class _TermsScreenState extends State<TermsScreen> {
                 size: 18,
                 align: TextAlign.start,
               ),
-              const CustomSize(),
+               CustomSize(),
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
                     color: ColorConst.cardBgColor
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(8.0),
                   child: CustomText(
                     text: subTitles[index],
                     size: 16,

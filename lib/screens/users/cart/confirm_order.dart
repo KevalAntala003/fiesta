@@ -23,7 +23,7 @@ import 'package:http/http.dart' as http;
 
 
 class ConfirmOrderUser extends StatefulWidget {
-  const ConfirmOrderUser({super.key});
+   ConfirmOrderUser({super.key});
 
   @override
   State<ConfirmOrderUser> createState() => _ConfirmOrderUserState();
@@ -46,15 +46,15 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
 
   Widget buildBody() {
     return Padding(
-      padding: const EdgeInsets.all(VarConst.padding),
+      padding:  EdgeInsets.all(VarConst.padding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomSize(
+           CustomSize(
             height: VarConst.sizeOnAppBar,
           ),
           buildAppbar(),
-          const CustomSize(),
+           CustomSize(),
           CustomText(
             text: "Total Amount : $rupeesIcon$totalAmount",
             align: TextAlign.start,
@@ -67,7 +67,7 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -86,23 +86,23 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
   Widget buildListView() {
     return Obx(
       () => VarConst.isLoading.value
-          ? const Center(child: CircularProgressIndicator())
+          ?  Center(child: CircularProgressIndicator())
           : ListView.separated(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              physics:  NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, index) {
                 return ListTile(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14), side: const BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
+                      borderRadius: BorderRadius.circular(14), side:  BorderSide(color: ColorConst.textSecondaryColor, width: 0.2)),
                   tileColor: ColorConst.cardBgColor,
                   onTap: () => show(Routes.shoeInfoScreenAdmin, argument: cartItems[index].shoeData),
                   leading: CachedNetworkImage(
                     imageUrl: cartItems[index].shoeData!.imgUrl!,
-                    placeholder: (context, url) => const Padding(
+                    placeholder: (context, url) =>  Padding(
                       padding: EdgeInsets.all(8.0),
                       child: CircularProgressIndicator(),
                     ),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    errorWidget: (context, url, error) =>  Icon(Icons.error),
                   ),
                   title: CustomText(
                     text: cartItems[index].shoeData!.name!,
@@ -117,7 +117,7 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
                 );
               },
               separatorBuilder: (BuildContext context, index) {
-                return const CustomSize();
+                return  CustomSize();
               },
               itemCount: cartItems.length),
     );
@@ -126,10 +126,10 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
   Widget buildConfirm() {
     return Obx(
       () => Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding:  EdgeInsets.all(8.0),
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
+                minimumSize:  Size.fromHeight(50),
                 backgroundColor: ColorConst.primaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14))),
@@ -158,13 +158,13 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
                   handleExternalWalletSelected);
               razorpay.open(options);
             },
-            child: isPlacingOrder.value ? const CircularProgressIndicator() : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: const CustomText(
+            child: isPlacingOrder.value ?  CircularProgressIndicator() : Padding(
+              padding:  EdgeInsets.all(8.0),
+              child:  CustomText(
                 size: 16,
                 text: "Confirm Order",
                 color: Colors.white,
-              ).animate().fadeIn(duration: const Duration(milliseconds: 500)),
+              ).animate().fadeIn(duration:  Duration(milliseconds: 500)),
             )),
       ),
     );
@@ -264,7 +264,7 @@ class _ConfirmOrderUserState extends State<ConfirmOrderUser> {
 
   void showAlertDialog(BuildContext context, String title, String message) {
     Widget continueButton = ElevatedButton(
-      child: const Text("Continue"),
+      child:  Text("Continue"),
       onPressed: () {},
     );
     // set up the AlertDialog

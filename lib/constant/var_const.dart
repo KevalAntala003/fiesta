@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class VarConst {
-  static const double padding = 14;
-  static const double sizeOnAppBar = 30;
+  static  double padding = 14;
+  static  double sizeOnAppBar = 30;
   static UserCredential? credential;
   static String? userFCMToken;
   static String? currentUser;

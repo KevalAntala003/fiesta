@@ -18,7 +18,7 @@ import '../../../routing/routes.dart';
 import '../../../utils/show.dart';
 
 class CartScreenUser extends StatefulWidget {
-  const CartScreenUser({super.key});
+   CartScreenUser({super.key});
 
   @override
   State<CartScreenUser> createState() => _CartScreenUserState();
@@ -45,17 +45,17 @@ class _CartScreenUserState extends State<CartScreenUser> {
 
   Widget buildBody() {
     return Padding(
-      padding: const EdgeInsets.all(VarConst.padding),
+      padding:  EdgeInsets.all(VarConst.padding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomSize(
+           CustomSize(
             height: VarConst.sizeOnAppBar,
           ),
           buildAppbar(),
-          const CustomSize(),
+           CustomSize(),
           Obx(() => totalAmount.value == 0
-              ? const SizedBox()
+              ?  SizedBox()
               : CustomText(
                   text: "Total Amount : $rupeesIcon${totalAmount.value}",
                   align: TextAlign.start,
@@ -68,7 +68,7 @@ class _CartScreenUserState extends State<CartScreenUser> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -88,9 +88,9 @@ class _CartScreenUserState extends State<CartScreenUser> {
   Widget buildListView() {
     return Obx(
       () => VarConst.isLoading.value
-          ? const Center(child: CircularProgressIndicator())
+          ?  Center(child: CircularProgressIndicator())
           : cartItems.isEmpty
-              ? const Center(
+              ?  Center(
                   child: Padding(
                     padding: EdgeInsets.only(top: 118.0),
                     child: CustomText(text: "Cart is Empty!!",size: 20,),
@@ -98,25 +98,25 @@ class _CartScreenUserState extends State<CartScreenUser> {
                 )
               : ListView.separated(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics:  NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, index) {
 
                     return ListTile(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
-                          side: const BorderSide(
+                          side:  BorderSide(
                               color: ColorConst.textSecondaryColor, width: 0.2)),
                       tileColor: ColorConst.cardBgColor,
                       onTap: () => show(Routes.shoeInfoScreenAdmin,
                           argument: cartItems[index].shoeData),
                       leading: CachedNetworkImage(
                         imageUrl: cartItems[index].shoeData!.imgUrl!,
-                        placeholder: (context, url) => const Padding(
+                        placeholder: (context, url) =>  Padding(
                           padding: EdgeInsets.all(8.0),
                           child: CircularProgressIndicator(),
                         ),
                         errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                             Icon(Icons.error),
                       ),
                       title: CustomText(
                         text: cartItems[index].shoeData!.name!,
@@ -131,7 +131,7 @@ class _CartScreenUserState extends State<CartScreenUser> {
                     );
                   },
                   separatorBuilder: (BuildContext context, index) {
-                    return const CustomSize();
+                    return  CustomSize();
                   },
                   itemCount: cartItems.length),
     );
@@ -139,9 +139,9 @@ class _CartScreenUserState extends State<CartScreenUser> {
 
   Widget buildFloatingButtons() {
     return cartItems.isEmpty
-        ? const SizedBox()
+        ?  SizedBox()
         : Padding(
-            padding: const EdgeInsets.all(VarConst.padding),
+            padding:  EdgeInsets.all(VarConst.padding),
             child: Row(
               children: [
                 Expanded(
@@ -153,12 +153,12 @@ class _CartScreenUserState extends State<CartScreenUser> {
                       backgroundColor: ColorConst.red,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14))),
-                  child: const CustomText(
+                  child:  CustomText(
                     text: "Clear Cart",
                     color: ColorConst.white,
                   ),
                 )),
-                const CustomSize(),
+                 CustomSize(),
                 Expanded(
                   child: ElevatedButton(
                       onPressed: () {
@@ -183,7 +183,7 @@ class _CartScreenUserState extends State<CartScreenUser> {
                           backgroundColor: ColorConst.primaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(14))),
-                      child: const CustomText(
+                      child:  CustomText(
                           text: "Place Order", color: ColorConst.white)),
                 ),
               ],

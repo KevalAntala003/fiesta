@@ -9,7 +9,7 @@ import '../../../custom_widget/custom_size.dart';
 import '../../../custom_widget/custom_text.dart';
 
 class UserDataScreenAdmin extends StatefulWidget {
-  const UserDataScreenAdmin({super.key});
+   UserDataScreenAdmin({super.key});
 
   @override
   State<UserDataScreenAdmin> createState() => _UserDataScreenAdminState();
@@ -26,10 +26,10 @@ class _UserDataScreenAdminState extends State<UserDataScreenAdmin> {
 
   Widget buildBody(){
     return SingleChildScrollView(child: Padding(
-      padding: const EdgeInsets.all(VarConst.padding),
+      padding:  EdgeInsets.all(VarConst.padding),
       child: Column(
         children: [
-          const CustomSize(
+           CustomSize(
             height: VarConst.sizeOnAppBar,
           ),
           buildAppbar(),
@@ -40,7 +40,7 @@ class _UserDataScreenAdminState extends State<UserDataScreenAdmin> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -68,11 +68,11 @@ class _UserDataScreenAdminState extends State<UserDataScreenAdmin> {
 
   Widget buildListTileView({required String title,required String subTitle}){
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding:  EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: const BorderSide(color: ColorConst.textSecondaryColor,width: 0.2)
+            side:  BorderSide(color: ColorConst.textSecondaryColor,width: 0.2)
         ),
         tileColor: ColorConst.cardBgColor,
         title: CustomText(

@@ -12,7 +12,7 @@ import '../../custom_widget/custom_size.dart';
 import '../../custom_widget/custom_text.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+   ForgotPasswordScreen({super.key});
 
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
@@ -30,29 +30,29 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget buildBody(){
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(VarConst.padding),
+        padding:  EdgeInsets.all(VarConst.padding),
         child: Column(
           children: [
-            const CustomSize(
+             CustomSize(
               height: VarConst.sizeOnAppBar,
             ),
-            const Row(
+             Row(
               children: [
                 CustomBack(isWhite: false,),
               ],
             ),
-            const CustomSize(
+             CustomSize(
               height: 8,
             ),
-            const CustomText(
+             CustomText(
               text: "Forgot password",
               size: 32,
               weight: true,
             ),
-            const CustomSize(
+             CustomSize(
               height: 5,
             ),
-            const Padding(
+             Padding(
               padding: EdgeInsets.symmetric(horizontal: 50),
               child: CustomText(
                 text: "Enter Your Email Account To Reset Your Password",
@@ -61,7 +61,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 color: ColorConst.textSecondaryColor,
               ),
             ),
-            const CustomSize(
+             CustomSize(
               height: 30,
             ),
             CustomTextFormField(

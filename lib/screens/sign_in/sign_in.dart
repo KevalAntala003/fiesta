@@ -23,7 +23,7 @@ import '../../routing/routes.dart';
 import '/constant/color_const.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+   SignIn({super.key});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -45,47 +45,47 @@ class _SignInState extends State<SignIn> {
   Widget buildBody() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(VarConst.padding),
+        padding:  EdgeInsets.all(VarConst.padding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CustomSize(
+             CustomSize(
               height: VarConst.sizeOnAppBar,
             ),
-            const Row(
+             Row(
               children: [
                 CustomBack(
                   isWhite: false,
                 ),
               ],
             ),
-            const CustomSize(
+             CustomSize(
               height: 8,
             ),
-            const CustomText(
+             CustomText(
               text: "Hello Again!",
               size: 32,
               weight: true,
             ),
-            const CustomSize(
+             CustomSize(
               height: 5,
             ),
-            const CustomText(
+             CustomText(
               text: "Fill Your Details to Continue",
               size: 16,
               color: ColorConst.textSecondaryColor,
             ),
-            const CustomSize(
+             CustomSize(
               height: 30,
             ),
             CustomTextFormField(fieldColor: ColorConst.cardBgColor, text: "Email Address", hintText: "xyz@gmail.com", controller: emailController),
-            const CustomSize(
+             CustomSize(
               height: 30,
             ),
             buildPasswordField(),
-            const CustomSize(),
+             CustomSize(),
             buildRecoveryButton(),
-            const CustomSize(
+             CustomSize(
               height: 30,
             ),
             buildSignInButton(),
@@ -99,16 +99,16 @@ class _SignInState extends State<SignIn> {
   Widget buildPasswordField() {
     return Column(
       children: [
-        const Row(
+         Row(
           children: [
             CustomText(text: "Password", color: ColorConst.textSecondaryColor, fontFamily: ForFontFamily.rale),
           ],
         ),
-        const CustomSize(),
+         CustomSize(),
         Obx(
           () => TextFormField(
             textInputAction: TextInputAction.next,
-            style: const TextStyle(fontWeight: FontWeight.bold, color: ColorConst.textPrimaryColor),
+            style:  TextStyle(fontWeight: FontWeight.bold, color: ColorConst.textPrimaryColor),
             controller: passwordController,
             validator: (value) {
               if (value!.isEmpty) {
@@ -125,17 +125,17 @@ class _SignInState extends State<SignIn> {
                   isView.value = !isView.value;
                 },
                 icon: isView.value
-                    ? const Icon(
+                    ?  Icon(
                         Icons.visibility_off,
                         color: ColorConst.textPrimaryColor,
                       )
-                    : const Icon(
+                    :  Icon(
                         Icons.visibility,
                         color: ColorConst.textPrimaryColor,
                       ),
               ),
               hintText: ".......",
-              hintStyle: const TextStyle(color: ColorConst.textSecondaryColor, fontWeight: FontWeight.bold),
+              hintStyle:  TextStyle(color: ColorConst.textSecondaryColor, fontWeight: FontWeight.bold),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
             ),
           ),
@@ -149,7 +149,7 @@ class _SignInState extends State<SignIn> {
       onTap: () {
         show(Routes.forgotPassword);
       },
-      child: const Row(
+      child:  Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           CustomText(
@@ -167,13 +167,13 @@ class _SignInState extends State<SignIn> {
       () => VarConst.isLoading.value
           ? ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(50),
+                  minimumSize:  Size.fromHeight(50),
                   backgroundColor: ColorConst.primaryColor,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
               onPressed: () {
                 Get.snackbar("Wait", "Details checking is in process");
               },
-              child: const CircularProgressIndicator(
+              child:  CircularProgressIndicator(
                 color: Colors.white,
               ))
           : CustomButton(onPressed: () => onSignIn(), buttonText: "SignIn"),
@@ -184,7 +184,7 @@ class _SignInState extends State<SignIn> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const CustomText(
+         CustomText(
           text: "New User?",
           size: 16,
           color: ColorConst.textSecondaryColor,
@@ -193,7 +193,7 @@ class _SignInState extends State<SignIn> {
           onPressed: () {
             show(Routes.createAccount);
           },
-          child: const CustomText(
+          child:  CustomText(
             text: "Create Account",
             color: ColorConst.primaryColor,
           ),

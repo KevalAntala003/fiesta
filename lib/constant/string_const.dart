@@ -1,3 +1,3 @@
 class StringConst{
-  static const String companyName = "Foot Fiesta";
+  static  String companyName = "Foot Fiesta";
 }

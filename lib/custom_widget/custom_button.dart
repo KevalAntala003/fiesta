@@ -5,7 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'custom_text.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton(
+   CustomButton(
       {super.key,
       required this.onPressed,
       required this.buttonText,
@@ -23,22 +23,22 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding:  EdgeInsets.all(8.0),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              minimumSize: const Size.fromHeight(50),
+              minimumSize:  Size.fromHeight(50),
               backgroundColor: buttonColor ?? ColorConst.primaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14))),
           onPressed: onPressed,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:  EdgeInsets.all(8.0),
             child: CustomText(
               size: textSize ?? 16,
               text: buttonText,
               weight: weight ?? true,
               color: textColor ?? Colors.white,
-            ).animate().fadeIn(duration: const Duration(milliseconds: 500)),
+            ).animate().fadeIn(duration:  Duration(milliseconds: 500)),
           )),
     );
   }

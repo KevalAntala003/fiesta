@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class CustomSize extends StatelessWidget {
-  const CustomSize({Key? key,this.height,this.width}) : super(key: key);
+   CustomSize({Key? key,this.height,this.width}) : super(key: key);
   final double? height;
   final double? width;
 

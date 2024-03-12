@@ -30,7 +30,7 @@ class FireBaseNotification {
   FireBaseNotification.init();
 
   late FirebaseMessaging firebaseMessaging;
-  late AndroidNotificationChannel channel = const AndroidNotificationChannel(
+  late AndroidNotificationChannel channel =  AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
     // 'This channel is used for important notifications.', // description
@@ -96,7 +96,7 @@ class FireBaseNotification {
   }
 
   Future<void> setUpLocalNotification() async {
-    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+     AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
 
     final DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: false,
@@ -146,7 +146,7 @@ class FireBaseNotification {
 
   void showLocalNotification(RemoteMessage message) async {
     RemoteNotification? notification = message.notification;
-    const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails('your channel id', 'your channel name',
+     AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails('your channel id', 'your channel name',
         channelDescription: 'your channel description',
         importance: Importance.max,
         playSound: true,
@@ -154,7 +154,7 @@ class FireBaseNotification {
         icon: '@mipmap/ic_launcher',
         priority: Priority.high,
         ticker: 'ticker');
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
+     NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
 
     await flutterLocalNotificationsPlugin.show(0, notification?.title ?? "", notification?.body ?? "", platformChannelSpecifics,
         payload: json.encode(message.data));

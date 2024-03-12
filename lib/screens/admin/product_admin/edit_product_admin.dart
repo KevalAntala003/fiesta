@@ -20,7 +20,7 @@ import '../../../custom_widget/custom_size.dart';
 import 'add_product_admin.dart';
 
 class EditProductAdmin extends StatefulWidget {
-  const EditProductAdmin({super.key});
+   EditProductAdmin({super.key});
 
   @override
   State<EditProductAdmin> createState() => _EditProductAdminState();
@@ -79,41 +79,41 @@ class _EditProductAdminState extends State<EditProductAdmin> {
 
   Widget buildBody() {
     return Padding(
-      padding: const EdgeInsets.all(VarConst.padding),
+      padding:  EdgeInsets.all(VarConst.padding),
       child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics:  BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CustomSize(
+             CustomSize(
               height: VarConst.sizeOnAppBar,
             ),
             buildAppbar(),
-            const CustomSize(
+             CustomSize(
               height: 20,
             ),
             CustomTextFormField(
                 text: "Name Of Product",
                 controller: nameController,
                 hintText: "xxxxxxxx"),
-            const CustomSize(),
+             CustomSize(),
             CustomTextFormField(
                 text: "Description",
                 controller: desController,
                 hintText: "cool shoes for men"),
-            const CustomSize(),
+             CustomSize(),
             buildShoeSize(),
-            const CustomSize(),
+             CustomSize(),
             buildCategorySelection(),
-            const CustomSize(),
+             CustomSize(),
             CustomNumberTextFormField(
               text: "Price",
               controller: priceController,
               hintText: "${rupeesIcon}4000",
             ),
-            const CustomSize(),
+             CustomSize(),
             image != null ? buildShowImage() : buildGetImage(),
-            const CustomSize(
+             CustomSize(
               height: 70,
             )
           ],
@@ -123,7 +123,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
   }
 
   Widget buildAppbar() {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomBack(),
@@ -141,21 +141,21 @@ class _EditProductAdminState extends State<EditProductAdmin> {
   Widget buildShoeSize(){
     return Column(crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomText(
+         CustomText(
           text: 'Select shoes Size',
           weight: true,
           size: 16,
           color: ColorConst.textSecondaryColor,
           fontFamily: ForFontFamily.rale,
         ),
-        const SizedBox(height: 10),
+         SizedBox(height: 10),
         Row(children: List.generate(shoeSize.length, (index) {
           return InkWell(onTap: () {
             shoeSize[index].isSelected = !shoeSize[index].isSelected!;
             setState(() {});
           },
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4),
+              margin:  EdgeInsets.symmetric(horizontal: 4),
               height: 35,
               width: 35,
               alignment: Alignment.center,
@@ -205,14 +205,14 @@ class _EditProductAdminState extends State<EditProductAdmin> {
             color: ColorConst.cardBgColor),
         child: Obx(
               () => VarConst.isLoading.value
-              ? const Center(child: CircularProgressIndicator())
+              ?  Center(child: CircularProgressIndicator())
               : CachedNetworkImage(
                 imageUrl: shoeData.imgUrl!,
-                placeholder: (context, url) => const Padding(
+                placeholder: (context, url) =>  Padding(
                   padding: EdgeInsets.all(8.0),
                   child: CircularProgressIndicator(),
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) =>  Icon(Icons.error),
               )
         ),
       ),
@@ -223,7 +223,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const CustomText(
+         CustomText(
           text: "Category",
           weight: true,
           size: 16,
@@ -232,7 +232,7 @@ class _EditProductAdminState extends State<EditProductAdmin> {
         ),
         Obx(() => DropdownButton(
           underline: Container(
-            decoration: const ShapeDecoration(
+            decoration:  ShapeDecoration(
               shape: RoundedRectangleBorder(
                 side: BorderSide(width: 0, style: BorderStyle.none),
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -262,19 +262,19 @@ class _EditProductAdminState extends State<EditProductAdmin> {
 
   Widget buildFloatingButton() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding:  EdgeInsets.all(8.0),
       child: Obx(
             () => VarConst.isLoading.value
             ? ElevatedButton(
             style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
+                minimumSize:  Size.fromHeight(50),
                 backgroundColor: ColorConst.primaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14))),
             onPressed: () {
               Get.snackbar("Wait", "Details checking is in process");
             },
-            child: const CircularProgressIndicator(
+            child:  CircularProgressIndicator(
               color: Colors.white,
             ))
             : CustomButton(

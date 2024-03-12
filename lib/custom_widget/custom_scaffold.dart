@@ -3,7 +3,7 @@ import '/custom_widget/custom_text.dart';
 import '../constant/color_const.dart';
 
 class CustomScaffold extends StatelessWidget {
-  const CustomScaffold({super.key, this.appBarAction, this.appBarText, this.body, this.drawer, this.bgColor, this.appBarBgColor, this.floatingActionButton, this.floatingActionButtonLocation, this.onBack});
+   CustomScaffold({super.key, this.appBarAction, this.appBarText, this.body, this.drawer, this.bgColor, this.appBarBgColor, this.floatingActionButton, this.floatingActionButtonLocation, this.onBack});
 
   final List<Widget>? appBarAction;
   final String? appBarText;
@@ -23,7 +23,7 @@ class CustomScaffold extends StatelessWidget {
         centerTitle: true,
         backgroundColor: appBarBgColor ?? ColorConst.primaryColor,
         title: CustomText(text: appBarText ?? "Foot Fiesta",color: Colors.white,size: 18,),
-        shape: const RoundedRectangleBorder(
+        shape:  RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(15),
           ),
