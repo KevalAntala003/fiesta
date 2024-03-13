@@ -6,7 +6,11 @@ import 'package:fiesta/repository/get_data_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../constant/color_const.dart';
+import '../../../constant/list_const.dart';
 import '../../../models/shoe_data.dart';
+import '../../../models/user_data.dart';
+import '../../../utils/emuns.dart';
+import '../../splash/splash.dart';
 import '/custom_widget/custom_back.dart';
 import '/utils/show.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +27,19 @@ class AllProductAdmin extends StatefulWidget {
 }
 
 class _AllProductAdminState extends State<AllProductAdmin> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: buildBody(),
-      floatingActionButton: buildFloatingButton(),
+      floatingActionButton: Obx(() => !isAdmin.value ? buildFloatingButton() : SizedBox() ),
     );
   }
 
@@ -67,11 +79,13 @@ class _AllProductAdminState extends State<AllProductAdmin> {
   }
 
   Widget buildListView() {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance
+    return Obx(() => StreamBuilder(
+      stream: !isAdmin.value ? FirebaseFirestore.instance
           .collection('products')
           .where("seller", isEqualTo: VarConst.currentUser!)
-          .snapshots(),
+          .snapshots() :
+      FirebaseFirestore.instance
+          .collection('products').snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return  Center(child: CircularProgressIndicator());
@@ -83,7 +97,7 @@ class _AllProductAdminState extends State<AllProductAdmin> {
           return  Center(child: Padding(
             padding: EdgeInsets.only(top: 50.0),
             child: Text('No Products available!',style: TextStyle(fontSize: 20,
-            color: ColorConst.textPrimaryColor),),
+                color: ColorConst.textPrimaryColor),),
           ));
         }
         return ListView(
@@ -153,7 +167,7 @@ class _AllProductAdminState extends State<AllProductAdmin> {
           }).toList(),
         );
       },
-    );
+    ));
   }
 
   Widget buildFloatingButton() {

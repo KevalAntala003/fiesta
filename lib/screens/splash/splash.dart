@@ -8,11 +8,15 @@ import 'package:fiesta/repository/get_data_repository.dart';
 import 'package:fiesta/utils/emuns.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/user_data.dart';
 import '/constant/img_const.dart';
 import '../../routing/routes.dart';
 import '../../utils/show.dart';
+
+
+RxBool isAdmin = false.obs;
 
 class Splash extends StatefulWidget {
    Splash({super.key});
@@ -52,6 +56,7 @@ class _SplashState extends State<Splash> {
       if (VarConst.currentUser != null) {
         if (VarConst.adminData.adminId == VarConst.currentUser) {
           log("Welcome Admin...");
+          isAdmin.value = true;
           showOffAll(Routes.adminHome);
         } else {
           log("Welcome User...");

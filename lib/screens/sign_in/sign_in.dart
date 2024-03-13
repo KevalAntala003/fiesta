@@ -20,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../constant/var_const.dart';
 import '../../custom_widget/custom_back.dart';
 import '../../routing/routes.dart';
+import '../splash/splash.dart';
 import '/constant/color_const.dart';
 
 class SignIn extends StatefulWidget {
@@ -232,6 +233,7 @@ class _SignInState extends State<SignIn> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString("userId", VarConst.credential!.user!.uid);
         if (VarConst.credential!.user!.uid == VarConst.adminData.adminId) {
+          isAdmin.value = true;
           showOffAll(Routes.adminHome);
         } else {
           await FirebaseFirestore.instance.collection("users").doc(VarConst.currentUser).get().then((value) {
